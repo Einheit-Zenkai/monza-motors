@@ -1,0 +1,4 @@
+.bg-dark {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(2px);
+}

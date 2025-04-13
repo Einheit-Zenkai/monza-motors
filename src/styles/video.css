@@ -1,0 +1,25 @@
+.video-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .video-container {
+    width: 100%;
+    max-width: 100%;
+    transition: width 0.3s ease;
+  }
+  
+  .video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+  }
+  
+  #player {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+  }
