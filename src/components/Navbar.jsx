@@ -23,6 +23,9 @@ function Navbar() {
                 <Link className="nav-link" to="/customizer">Customizer</Link>
               </li>
               <li className="nav-item">
+                <Link className="nav-link" to="/spare-parts">Spare-Parts</Link>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/about-us">About Us</Link>
               </li>
             </ul>

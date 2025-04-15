@@ -1,0 +1,55 @@
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #303436;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .product-body {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+  
+  .product-text {
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+  
+/* Optional: simulate a price & CTA like Amazon */
+.card-body::after {
+    content: "$29.99";
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #B12704;
+}
+/* 
+.card-body::before {
+    content: "⭐️⭐️⭐️⭐️☆";
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #ffa41c;
+} */
