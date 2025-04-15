@@ -20,9 +20,6 @@ function Navbar() {
                 <Link className="nav-link" to="/cars">Cars</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/carpages/p1">Mclaren</Link> {/* Link to p1.jsx */}
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/customizer">Customizer</Link>
               </li>
               <li className="nav-item">
