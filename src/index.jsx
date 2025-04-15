@@ -4,10 +4,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App"; // Import the App component
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './styles/navbar.css';
-import './styles/video.css';
-import './styles/buttons.css';
-import './styles/global.css'; // 👈 GLOBAL STYLES HERE
+import '../public/static/styles/navbar.css';
+import '../public/static/styles/video.css';
+import '../public/static/styles/buttons.css';
+import '../public/static/styles/global.css'; // 👈 GLOBAL STYLES HERE
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(  // Use root.render instead of ReactDOM.render

@@ -1,6 +1,6 @@
 import React from "react";
 
-const P1 = () => {
+const skyline = () => {
     return (
         <div className="p1-container">
             <h1 className="p1-title">McLaren P1</h1>

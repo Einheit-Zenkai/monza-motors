@@ -1,17 +1,38 @@
 import React from 'react';
-import '../styles/cars-page.css'; // Assuming you have a CSS file for styling
+import '../../public/static/styles/cars-page.css'; // Assuming you have a CSS file for styling
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function Cars() {
   return (
     <div>
+            <section 
+        className="car-section" 
+        style={{ backgroundImage: 'url(./static/imgs/RR/rrdriving.jpg)' }}>
+        <div className="info-box">
+          <h1>Rolls Royce Ghost</h1>
+          <p>Elegance redefined with a 563 HP V12. Silent. Smooth. Sophisticated. 0–100 in 4.6s.</p>
+          <Link to="/carpages/rollsroyce"><button className="read-more">Read More</button></Link>
+        </div>
+      </section>
+
+
       <section 
         className="car-section" 
-        style={{ backgroundImage: 'url(./static/imgs/ferrari/newcarberny.jpg)' }}>
+        style={{ backgroundImage: 'url(./static/imgs/ferrari/newberlinettaimage.jpg)' }}>
         <div className="info-box">
           <h1>Ferrari F12 Berlinetta</h1>
           <p>730 HP of Italian fury. 0-100 km/h in 3.1s. A perfect blend of speed, passion, and precision.</p>
           <Link to="/carpages/f12"><button className="read-more">Read More</button></Link>
+        </div>
+      </section>
+
+      <section 
+        className="car-section" 
+        style={{ backgroundImage: 'url(./static/imgs/skyline/4k_skyline_japan_night.jpg)' }}>
+        <div className="info-box">
+          <h1>Nissan Skyline R34 GT-R</h1>
+          <p>Japanese legend. Twin-turbo inline-6 with AWD grip. Forever a street racing icon.</p>
+          <Link to="/carpages/skyline"> <button className="read-more">Read More</button></Link>
         </div>
       </section>
 
@@ -45,25 +66,7 @@ function Cars() {
         </div>
       </section>
 
-      <section 
-        className="car-section" 
-        style={{ backgroundImage: 'url(./static/imgs/skyline/4k_skyline_japan_night.jpg)' }}>
-        <div className="info-box">
-          <h1>Nissan Skyline R34 GT-R</h1>
-          <p>Japanese legend. Twin-turbo inline-6 with AWD grip. Forever a street racing icon.</p>
-          <Link to="/carpages/skyline"> <button className="read-more">Read More</button></Link>
-        </div>
-      </section>
 
-      <section 
-        className="car-section" 
-        style={{ backgroundImage: 'url(./static/imgs/RR/RRblack.jpg)' }}>
-        <div className="info-box">
-          <h1>Rolls Royce Ghost</h1>
-          <p>Elegance redefined with a 563 HP V12. Silent. Smooth. Sophisticated. 0–100 in 4.6s.</p>
-          <Link to="/carpages/rollsroyce"><button className="read-more">Read More</button></Link>
-        </div>
-      </section>
     </div>
   );
 }

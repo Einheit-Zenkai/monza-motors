@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "../styles/CarParallax.css";
+import "../../public/static/styles/CarParallax.css";
 
 gsap.registerPlugin(ScrollTrigger);
 const carData = [
