@@ -9,6 +9,7 @@ import Cars from "./components/Cars";
 import Customizer from "./components/Customizer";
 import AboutUs from "./components/AboutUs";
 import Footer from "./components/Footer"; // Import the Footer component
+import P1 from './components/carpages/p1';
 
 function App() {
   const location = useLocation();  // This works fine because Router is wrapping App at the root level
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/customizer" element={<Customizer />} />
+        <Route path="/carpages/p1" element={<P1 />} /> {/* This is important */}
         <Route path="/about-us" element={<AboutUs />} />
       </Routes>
       {!shouldHideFooter && <Footer />}

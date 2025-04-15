@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/cars-page.css'; // Assuming you have a CSS file for styling
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function Cars() {
   return (

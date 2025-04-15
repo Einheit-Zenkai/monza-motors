@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // To use React Router for navigation (instead of <a> tags)
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -20,7 +20,7 @@ function Navbar() {
                 <Link className="nav-link" to="/cars">Cars</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/carpages/p1">Mclaren</Link>
+                <Link className="nav-link" to="/carpages/p1">Mclaren</Link> {/* Link to p1.jsx */}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/customizer">Customizer</Link>

@@ -1,5 +1,4 @@
 import React from "react";
-import "./p1.css"; // Add a CSS file for styling if needed
 
 const P1 = () => {
     return (
