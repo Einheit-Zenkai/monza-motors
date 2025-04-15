@@ -1,5 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import Plyr from 'plyr'; // Import Plyr library
+import CarParallax from './CarParallax';
 // import 'plyr/dist/plyr.css';
 
 function Home() {
@@ -55,6 +56,7 @@ function Home() {
   <h2>Signature Customs</h2>
   <p>Our builds are a reflection of pure performance and personal expression. Here are just a few of our latest masterpieces:</p>
 </section>
+< CarParallax />
 
 <section>
   <h2>Feel the Engine</h2>

@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Cars from "./components/Cars";
 import Customizer from "./components/Customizer";
 import AboutUs from "./components/AboutUs";
+import Footer from "./components/Footer"; // Import the Footer component
 
 function App() {
   const location = useLocation();  // This works fine because Router is wrapping App at the root level
@@ -15,6 +16,8 @@ function App() {
   useEffect(() => {
     initFadeIn();
   }, [location]);
+
+  const shouldHideFooter = ["/customizer"].includes(location.pathname);
 
   return (
     <>
@@ -25,6 +28,7 @@ function App() {
         <Route path="/customizer" element={<Customizer />} />
         <Route path="/about-us" element={<AboutUs />} />
       </Routes>
+      {!shouldHideFooter && <Footer />}
     </>
   );
 }

@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react": "^4.3.4",
     "bootstrap": "^5.3.5",
+    "gsap": "^3.12.7",
     "iro": "^0.9.3",
     "plyr": "^3.7.8",
     "react": "^19.1.0",
