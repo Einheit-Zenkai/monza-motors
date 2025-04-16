@@ -6,7 +6,7 @@ const Vulcan = () => {
             <h1 className="carstats-title">Aston Martin Vulcan</h1>
             <img
                 src="/static/imgs/vulcan/rp-vulcan-fr-21.jpg" // Replace with actual Vulcan image
-                src="/static/imgs/vulcan/rp-vulcan-fr-21.jpg" // Replace with an actual image URL
+                
                 alt="Aston Martin Vulcan"
                 className="p1-image"
             />
