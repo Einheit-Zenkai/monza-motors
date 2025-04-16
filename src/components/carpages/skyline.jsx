@@ -1,30 +1,43 @@
 import React from "react";
 
-const skyline = () => {
+const Skyline = () => {
     return (
-        <div className="p1-container">
-            <h1 className="p1-title">McLaren P1</h1>
+        <div className="carstats-container">
+            <h1 className="carstats-title">Nissan Skyline GT-R R34</h1>
             <img
-                src="https://example.com/mclaren-p1.jpg" // Replace with an actual image URL
-                alt="McLaren P1"
+                src="/static/imgs/skyline/purplskylineoutdoor.jpg" // Replace with actual Skyline image
+                alt="Nissan Skyline GT-R R34"
                 className="p1-image"
             />
-            <p className="p1-description">
-                The McLaren P1 is a hybrid hypercar that combines cutting-edge
-                technology with breathtaking performance. Powered by a 3.8L twin-turbo
-                V8 engine paired with an electric motor, it produces a combined output
-                of 903 horsepower. With a top speed of 217 mph and a 0-60 mph time of
-                just 2.8 seconds, the P1 is a masterpiece of engineering and design.
+            <p className="carstats-description">
+                The Nissan Skyline GT-R R34 is a legendary icon born from Japan’s golden era of performance engineering. Revered by enthusiasts and celebrated in motorsports, the R34 delivers a perfect harmony of raw power and advanced technology. With aggressive styling and race-bred DNA, it remains a symbol of tuner culture and JDM excellence.
             </p>
-            <ul className="p1-specs">
-                <li><strong>Engine:</strong> 3.8L Twin-Turbo V8 + Electric Motor</li>
-                <li><strong>Horsepower:</strong> 903 hp</li>
-                <li><strong>Top Speed:</strong> 217 mph</li>
-                <li><strong>0-60 mph:</strong> 2.8 seconds</li>
-                <li><strong>Production:</strong> Limited to 375 units</li>
-            </ul>
+
+            {/* STATS SECTION */}
+            <div className="carstats-stats-container">
+                <div className="carstats-stat-block">
+                    <h2 className="carstats-stat-value">4.9S</h2>
+                    <p className="carstats-stat-label">0-100 KMPH</p>
+                </div>
+                <div className="carstats-stat-block">
+                    <h2 className="carstats-stat-value">12.7S</h2>
+                    <p className="carstats-stat-label">0-200 KMPH</p>
+                </div>
+                <div className="carstats-stat-block">
+                    <h2 className="carstats-stat-value">13.1S</h2>
+                    <p className="carstats-stat-label">Quarter Mile</p>
+                </div>
+                <div className="carstats-stat-block">
+                    <h2 className="carstats-stat-value">250 KMPH</h2>
+                    <p className="carstats-stat-label">Top Speed</p>
+                </div>
+            </div>
+
+            <p className="carstats-description">
+                Powered by the iconic RB26DETT 2.6L twin-turbo inline-six, the R34 GT-R produces 276 horsepower in stock trim and delivers power through the advanced ATTESA E-TS all-wheel-drive system. Its reputation was cemented by its performance on both track and street, and today, it remains one of the most sought-after and beloved Japanese sports cars of all time.
+            </p>
         </div>
     );
 };
 
-export default skyline;
+export default Skyline;

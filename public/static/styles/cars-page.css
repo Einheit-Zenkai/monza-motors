@@ -126,3 +126,7 @@
     padding-bottom: 80px;
     padding-top: 80px;
     display: block;}
+  
+    .carstats-container {
+      padding-top: 100px; /* Adjust this value to match your navbar's height */
+  }
