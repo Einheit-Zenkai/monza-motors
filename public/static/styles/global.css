@@ -68,11 +68,4 @@ body {
     transform: translateY(0) !important;
   }
 
-  .p1-image{
-    width: 80%;
-    height: auto;
-    max-width: 800px;
-    margin: 0 auto;
-    padding-bottom: 80px;
-    padding-top: 80px;
-    display: block;}
+  

@@ -5,7 +5,7 @@ import "../../public/static/styles/CarParallax.css";
 
 gsap.registerPlugin(ScrollTrigger);
 const carData = [
-  { name: "Porsche 918 Spyder", image: "./static/imgs/918/918flipcard.jpg", carcardname: "car-card-1" },
+  { name: "Porsche 918 Spyder", image: "./static/imgs/otherimages/Velar-Interior-900x506.avif", carcardname: "car-card-1" },
   { name: "Ferrari F12 Berlinetta", image: "./static/imgs/ferrari/newberlinettaimage.jpg", carcardname: "car-card-2" },
   { name: "Aston Martin Vulcan", image: "./static/imgs/vulcan/astonmartinflipcard.jpg", carcardname: "car-card-3" },
   { name: "Nissan Skyline GT-R R34", image: "./static/imgs/skyline/skylineblack.jpg", carcardname: "car-card-4" },
@@ -42,7 +42,7 @@ const CarParallax = () => {
         {carData.map((car, i) => (
             <div className={car.carcardname} key={i}>
             <img src={car.image} alt={car.name} />
-            <p>{car.name}</p>
+            {/* <p>{car.name}</p> */}
             </div>
         ))}
       </div>
