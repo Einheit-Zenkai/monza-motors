@@ -3,11 +3,12 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { MeshoptDecoder } from 'meshoptimizer';
 import iro from "@jaames/iro"; // Assuming iro.js is installed
 import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
 
 const cars = {
-  ferrariF12: {
+  "Ferrari F12 Berlinetta": {
     path: "/static/3D-Models/cars/2013_ferrari_f12_berlinetta.glb",
     exterior_name:
       "bodyKit0_Paint_Geo_lodA_Ferrari_F12berlinetta_2014Paint_Material_0",
@@ -15,7 +16,7 @@ const cars = {
     offset: { x: 0, y: 0, z: 0 }, // Offset values for Ferrari F12
     default_color: "#ffffff",
   },
-  porsche918: {
+  "porsche 918": {
     path: "/static/3D-Models/cars/2015_porsche_918_spyder.glb",
     exterior_name:
       "pKit1_Paint_Geo_lodA_Kit1_Paint_Geo_lodA_Porsche_918SpyderRewardRecycled_2015Paint_Material_pPorsche_918SpyderRewardRecycled_2015Paint_Material1_0",
@@ -23,7 +24,7 @@ const cars = {
     offset: { x: 0, y: 0, z: 0 }, // Offset values for Porsche 918
     default_color: "#ffffff",
   },
-  nissan_skyline_r34_gtr: {
+  "Nissan Skyline R34 gtr": {
     path: "/static/3D-Models/cars/nissan_skyline_r34_gtr.glb",
     exterior_name:
       "Naran_Hyper_Coupe_carobjcarpaint_chassis_UV2_Untitled_030_Default_Carpaint_0",
@@ -31,21 +32,21 @@ const cars = {
     offset: { x: 0, y: 0, z: 0 }, // Offset values for Naran Hyper Coupe
     default_color: "#ffffff",
   },
-  astonMartinVulcan: {
+  "Aston Martin Vulcan": {
     path: "/static/3D-Models/cars/aston_martin_vulcan.glb",
     exterior_name: "LOD_A_HOOD_mm_ext001_CAR_PAINT_0",
     scale: 1,
     offset: { x: 0, y: 0, z: 0 }, // Offset values for Aston Martin Vulcan
     default_color: "#ffffff",
   },
-  nuclide: {
+  "McLaren P1": {
     path: "/static/3D-Models/cars/nuclide.glb",
     exterior_name: "RLA_miata_headlight_R_popup_RRpbrPaintPrimary_0",
     scale: 1,
-    offset: { x: 0, y: -0.1, z: 0 }, // Offset values for Mazda Miata
+    offset: { x: 0, y: 0, z: 0 }, // Offset values for Mazda Miata
     default_color: "#ffffff",
   },
-  rollsRoyceGhost: {
+  "Rolls Royce Ghost": {
     path: "/static/3D-Models/cars/rolls-royce_ghost.glb",
     exterior_name: {
       1: "rrghost_body_rrghost_paint_0",
@@ -64,7 +65,7 @@ const Customizer = () => {
   const rendererRef = useRef(null);
   const loaderRef = useRef(null);
 
-  const [currentCar, setCurrentCar] = useState(cars.ferrariF12);
+  const [currentCar, setCurrentCar] = useState(cars["Ferrari F12 Berlinetta"]);
   const [currentCarModel, setCurrentCarModel] = useState(null);
   const [isLoading] = useState(true); // State to control the loading screen
 
@@ -93,10 +94,10 @@ const Customizer = () => {
     controls.maxDistance = 5.3;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     directionalLight.position.set(0, 5, 0);
     scene.add(directionalLight);
 
@@ -107,7 +108,6 @@ const Customizer = () => {
       (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         scene.environment = texture;
-        texture.mapping = THREE.EquirectangularReflectionMapping;
         scene.background = texture;
       }
     );
@@ -124,6 +124,7 @@ const Customizer = () => {
 
     // Load initial garage model
     const loader = new GLTFLoader();
+    loader.setMeshoptDecoder(MeshoptDecoder);
     let garage_name = "static/3D-Models/garages/home-made-garage.glb";
     let garageModel;
     loader.load(
@@ -277,6 +278,11 @@ const Customizer = () => {
     const colorPicker = new iro.ColorPicker("#colorPickerContainer", {
       width: 200,
       color: currentCar.default_color,
+      layout: [
+        { component: iro.ui.Wheel },
+        { component: iro.ui.Slider, options: { sliderType: "saturation" } },
+        { component: iro.ui.Slider, options: { sliderType: "value" } },
+      ],
     });
 
     colorPicker.on("color:change", (color) => {
@@ -300,8 +306,21 @@ const Customizer = () => {
           style={{ width: "240px" }}
         >
           <div>
-            <label htmlFor="carSelector">Select Car:</label>
-            <select id="carSelector" onChange={handleCarChange}>
+            <label htmlFor="carSelector" style={{ fontWeight: "bold", marginBottom: "5px", display: "block" }}>
+              Select Car:
+            </label>
+            <select
+              id="carSelector"
+              onChange={handleCarChange}
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                fontSize: "14px",
+                marginBottom: "10px",
+              }}
+            >
               {Object.keys(cars).map((carKey) => (
                 <option key={carKey} value={carKey}>
                   {carKey}
@@ -311,10 +330,22 @@ const Customizer = () => {
           </div>
           <div
             id="colorPickerContainer"
-            style={{ width: "300px", height: "300px", marginTop: "10px" }}
+            style={{ width: "300px", marginTop: "10px", marginBottom: "0px" }}
           ></div>
         </div>
       </div>
+      <style>
+        {`
+          #carSelector:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+          }
+          #carSelector option {
+            padding: 5px;
+          }
+        `}
+      </style>
     </div>
   );
 };

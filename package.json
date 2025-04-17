@@ -13,6 +13,7 @@
     "bootstrap": "^5.3.5",
     "gsap": "^3.12.7",
     "iro": "^0.9.3",
+    "meshoptimizer": "^0.23.0",
     "plyr": "^3.7.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
