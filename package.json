@@ -9,6 +9,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "aos": "^3.0.0-beta.6",
     "bootstrap": "^5.3.5",
     "gsap": "^3.12.7",
     "iro": "^0.9.3",

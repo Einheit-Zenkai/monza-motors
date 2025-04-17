@@ -1,0 +1,38 @@
+
+.car-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .car-container.justify-start {
+    justify-content: flex-start;
+  }
+  
+  .car-container.justify-end {
+    justify-content: flex-end;
+  }
+  
+  .car-image {
+    width: 50%;
+    height: auto;
+    border-radius: 1%;
+  }
+  
+  .car-details {
+    width: 50%;
+  }
+  
+  .car-title {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .car-list {
+    margin-left: 4rem;
+    color: #bbb;
+    font-size: 1.125rem;
+    list-style: disc;
+  }
+  
