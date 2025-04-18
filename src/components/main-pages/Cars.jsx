@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../public/static/styles/cars-page.css'; // Assuming you have a CSS file for styling
+import '@/styles/cars-page.css'; // Simplified path assuming the CSS file is in the same folder or adjusted relative path
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function Cars() {

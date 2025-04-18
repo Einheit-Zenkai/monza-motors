@@ -5,7 +5,7 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { MeshoptDecoder } from 'meshoptimizer';
 import iro from "@jaames/iro"; // Assuming iro.js is installed
-import LoadingScreen from "./LoadingScreen"; // Import the LoadingScreen component
+import LoadingScreen from "@/components/others/LoadingScreen"; // Import the LoadingScreen component
 
 const cars = {
   "Ferrari F12 Berlinetta": {

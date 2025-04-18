@@ -15,18 +15,16 @@
   }
  
   .scroll-img img{
-    /* width: 100%; */
-    max-width: 60vw;
+    width: 100%;
     border-radius: 8px;
     margin-bottom: 0.75rem;
     object-fit: cover;
-    
   }
 
   .car-card-general {
     flex: 0 0 auto;
     /* background: #111; */
-    height: 80vh;
+    /* height: 80vh; */
     max-width: 60vw;
     color: #fff;
     border-radius: 12px;

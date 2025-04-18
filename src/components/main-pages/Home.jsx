@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useLayoutEffect } from 'react';
 import Plyr from 'plyr'; // Import Plyr library
-import CarParallax from './CarParallax';
+import CarParallax from '@/components/others/CarParallax';
 // import 'plyr/dist/plyr.css';
 
 function Home() {
@@ -57,12 +58,6 @@ function Home() {
   <p>Our builds are a reflection of pure performance and personal expression. Here are just a few of our latest masterpieces:</p>
 </section>
 < CarParallax />
-
-<section>
-  <h2>Feel the Engine</h2>
-  <p>Experience the raw sound of power. Put on your headphones and listen to the engine roars of our custom machines — each one uniquely tuned to perfection.</p>
-  <center><button>Listen Now</button></center>
-</section>
 
 <section>
   <h2>Custom Built. One-on-One.</h2>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../public/static/styles/about-us.css'
+import '@/styles/about-us.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

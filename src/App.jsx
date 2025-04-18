@@ -1,26 +1,25 @@
 import React, { useEffect } from "react";
 import { useLocation, Routes, Route } from "react-router-dom";
-import { initFadeIn } from "./scripts/fadein.js";
+import { initFadeIn } from "@/scripts/fadein.js"; // Updated path
 
 // Common Components
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "@/components/others/Navbar"; // Updated path
+import Footer from "@/components/others/Footer"; // Updated path
 
 // Main Pages
-import Home from "./components/Home";
-import Cars from "./components/Cars";
-import Customizer from "./components/Customizer";
-import AboutUs from "./components/AboutUs";
-import SpareParts from "./components/SpareParts";
+import Home from "@/components/main-pages/Home"; // Updated path
+import Cars from "@/components/main-pages/Cars"; // Updated path
+import Customizer from "@/components/main-pages/Customizer"; // Updated path
+import AboutUs from "@/components/main-pages/AboutUs"; // Updated path
+import SpareParts from "@/components/main-pages/SpareParts"; // Updated path
 
-//car pages
-import P1 from './components/carpages/p1';
-import F12 from './components/carpages/f12';
-import Porsche from './components/carpages/porsche';
-import Skyline from './components/carpages/skyline';
-import Vulcan from './components/carpages/vulcan';
-import Rollsroyce from './components/carpages/rollsroyce';
-
+// Car Pages
+import P1 from "@/components/carpages/p1"; // Updated path
+import F12 from "@/components/carpages/f12"; // Updated path
+import Porsche from "@/components/carpages/porsche"; // Updated path
+import Skyline from "@/components/carpages/skyline"; // Updated path
+import Vulcan from "@/components/carpages/vulcan"; // Updated path
+import Rollsroyce from "@/components/carpages/rollsroyce"; // Updated path
 
 function App() {
   const location = useLocation();  // This works fine because Router is wrapping App at the root level

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../public/static/styles/spare-parts.css';
+import '@/styles/spare-parts.css';
 
 const SpareParts = () => {
     return (
