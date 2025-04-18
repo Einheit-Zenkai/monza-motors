@@ -1,0 +1,16 @@
+[
+  {
+    "id": "p1",
+    "name": "Ferrari F12",
+    "price": 380000,
+    "image": "/static/imgs/ferrari/newberlinettaimage.jpg",
+    "description": "730 HP of Italian fury. 0-100 in 3.1s."
+  },
+  {
+    "id": "p2",
+    "name": "McLaren P1",
+    "price": 1150000,
+    "image": "/static/imgs/p1/p1.jpg",
+    "description": "903 HP hybrid hypercar."
+  }
+]
