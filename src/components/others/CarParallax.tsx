@@ -14,7 +14,7 @@ const featureData = [
   {
     title: "Immersive 3D Customizer",
     name: "Visualize Your Dream Car in Real Time",
-    image: "/static/imgs/features/3d-customizer.avif",
+    image: "/static/imgs/otherimages/Velar-Interior-900x506.avif",
     carcardname: "feature-card-2"
   },
   {
