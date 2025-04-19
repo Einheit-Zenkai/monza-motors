@@ -4,13 +4,43 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "@/styles/CarParallax.css";
 
 gsap.registerPlugin(ScrollTrigger);
-const carData = [
-  { name: "Interior smthn", image: "./static/imgs/otherimages/Velar-Interior-900x506.avif", carcardname: "car-card-1", title: "Nice interiors" },
-  { name: "Ferrari F12 Berlinetta", image: "./static/imgs/otherimages/cavallo.jpg", carcardname: "car-card-2", title: "what do we have here?" },
-  { name: "Aston Martin Vulcan", image: "./static/imgs/vulcan/astonmartinflipcard.jpg", carcardname: "car-card-3", title: "idk either" },
-  { name: "Nissan Skyline GT-R R34", image: "./static/imgs/skyline/skylineblack.jpg", carcardname: "car-card-4", title: "we need to do" },
-  { name: "Rolls-Royce Ghost", image: "./static/imgs/RR/RRblack.jpg", carcardname: "car-card-5", title: "something about this" },
-  { name: "McLaren P1", image: "./static/imgs/p1/p1.jpg", carcardname: "car-card-6", title: "situation" },
+const featureData = [
+  {
+    title: "Custom Car Builds",
+    name: "Tailored Performance & Aesthetics",
+    image: "/static/imgs/features/customferrari.jpg",
+    carcardname: "feature-card-1"
+  },
+  {
+    title: "Immersive 3D Customizer",
+    name: "Visualize Your Dream Car in Real Time",
+    image: "/static/imgs/features/3d-customizer.avif",
+    carcardname: "feature-card-2"
+  },
+  {
+    title: "Engine Sound Preview",
+    name: "Hear It Roar Before You Buy",
+    image: "/static/imgs/features/engine-preview.avif",
+    carcardname: "feature-card-3"
+  },
+  {
+    title: "Detailed Spec Sheets",
+    name: "Every Detail, Transparent & Verified",
+    image: "/static/imgs/features/spec-sheets.avif",
+    carcardname: "feature-card-4"
+  },
+  {
+    title: "In-Person Consultation",
+    name: "Expert Guidance for Your Custom Build",
+    image: "/static/imgs/features/in-person-consult.avif",
+    carcardname: "feature-card-5"
+  },
+  {
+    title: "Exclusive Inventory",
+    name: "Rare Imports & One-of-a-Kind Machines",
+    image: "/static/imgs/features/exclusive-cars.avif",
+    carcardname: "feature-card-6"
+  }
 ];
 
 const CarParallax = () => {
@@ -24,12 +54,12 @@ const CarParallax = () => {
       x: () => `-${totalWidth - viewportWidth}`,
       ease: "none",
       scrollTrigger: {
-      trigger: containerRef.current,
-      start: "top top",
-      end: () => `+=${totalWidth - viewportWidth}`,
-      scrub: true,
-      pin: true,
-      anticipatePin: 1,
+        trigger: containerRef.current,
+        start: "top top",
+        end: () => `+=${totalWidth - viewportWidth}`,
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
       },
     });
 
@@ -39,12 +69,12 @@ const CarParallax = () => {
   return (
     <section ref={containerRef} className="car-parallax-container">
       <div ref={scrollSectionRef} className="car-scroll">
-        {carData.map((car, i) => (
-            <div className={`car-card-general scroll-img ${car.carcardname}`} key={i}>
-              <h3>{car.title}</h3>
-            <img src={car.image} alt={car.name} />
+        {featureData.map((feature, i) => (
+          <div className={`car-card-general scroll-img ${feature.carcardname}`} key={i}>
+            <h3>{feature.title}</h3>
+            <img src={feature.image} alt={feature.name} />
             {/* <p>{car.name}</p> */}
-            </div>
+          </div>
         ))}
       </div>
     </section>
