@@ -6,6 +6,7 @@ const SpareParts = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("name-asc");
+  const [cartItems, setCartItems] = useState(0); // 🛒 cart count state
 
   useEffect(() => {
     fetch("/static/backend-databse-lmao/products.json")
@@ -16,6 +17,10 @@ const SpareParts = () => {
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
+
+  const addToCart = () => {
+    setCartItems(cartItems + 1); // ➕ increment cart items
+  };
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -44,7 +49,48 @@ const SpareParts = () => {
   const sortedProducts = sortProducts(filteredProducts, sortOrder);
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", position: "relative" }}>
+      {/* 🛒 Cart Icon */}
+      <div style={{ position: "absolute", top: "80px", right: "30px", cursor: "pointer" }}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="32"
+          viewBox="0 0 24 24"
+          width="32"
+          fill="#FFD700"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 
+          0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 
+          2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 
+          0 1.41-.41 1.75-1.03l3.58-6.49a1 
+          1 0 00-.89-1.48H5.21L4.27 2H1v2h2l3.6 
+          7.59-1.35 2.44C4.52 14.37 5.48 16 7 
+          16h12v-2H7.42c-.14 0-.25-.11-.26-.25z" />
+        </svg>
+        {cartItems > 0 && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-5px",
+              right: "-5px",
+              background: "#FFD700",
+              color: "black",
+              borderRadius: "50%",
+              width: "20px",
+              height: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              fontWeight: "bold",
+            }}
+          >
+            {cartItems}
+          </div>
+        )}
+      </div>
+
       <br />
       <br />
       <h1>Spare Parts</h1>
@@ -53,45 +99,45 @@ const SpareParts = () => {
         for your vehicle.
       </p>
 
-      {/* 🔍 Search and Dropdown - Updated Styling */}
+      {/* 🔍 Search and Dropdown */}
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "20px 0",
+          alignItems: "stretch",
+          margin: "20px auto",
           flexWrap: "nowrap",
           width: "100%",
           maxWidth: "800px",
-          marginLeft: "auto",
-          marginRight: "auto",
         }}
       >
-        {/* 📂 Dropdown Menu - Orange Button, White Text, Smaller Size */}
+        {/* 📂 Dropdown Menu */}
         <div
           className="menu"
           style={{
-            backgroundColor: "#FF6600", // Orange background
-            padding: "6px 10px", // Smaller padding
-            borderRadius: "4px 0 0 4px",
-            border: "1px solid #FF6600",
-            height: "100%",
+            backgroundColor: "#007bff",
+            padding: "0 20px",
+            borderRadius: "6px 0 0 6px",
+            border: "1px solid #007bff",
+            borderRight: "none",
             display: "flex",
             alignItems: "center",
-            minWidth: "100px", // Smaller width
+            justifyContent: "center",
+            minWidth: "130px",
+            height: "48px",
+            cursor: "pointer",
           }}
         >
-          <div className="item">
+          <div className="item" style={{ display: "flex", alignItems: "center" }}>
             <a
               href="#"
               className="link"
-              style={{ color: "white", fontSize: "14px" }} // White text, smaller font
+              style={{ color: "white", fontSize: "14px", textDecoration: "none" }}
             >
               <span>Sort By</span>
               <svg
                 viewBox="0 0 360 360"
-                xml:space="preserve"
-                style={{ fill: "white", width: "12px", height: "12px" }} // Smaller icon
+                xmlSpace="preserve"
+                style={{ fill: "white", width: "12px", height: "12px", marginLeft: "5px" }}
               >
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -136,25 +182,26 @@ const SpareParts = () => {
           </div>
         </div>
 
-        {/* SearchBar - Extended to Touch Dropdown */}
+        {/* 🔎 SearchBar */}
         <div style={{ flex: 1 }}>
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
             containerStyle={{
               width: "100%",
-              borderRadius: "0 4px 4px 0",
+              borderRadius: "0 6px 6px 0",
               marginLeft: "0",
-              borderLeft: "none", // Remove left border for seamless connection
             }}
             inputStyle={{
               width: "100%",
-              padding: "10px 12px", // Match dropdown height
+              padding: "10px 12px",
+              height: "48px",
+              borderLeft: "none",
             }}
           />
         </div>
       </div>
 
-      {/* 🛒 Product Cards (Unchanged) */}
+      {/* 🛒 Product Cards */}
       <div className="row">
         {sortedProducts.map((product) => (
           <div key={product.id} className="col-md-4 mb-4">
@@ -198,7 +245,9 @@ const SpareParts = () => {
                   ${product.price}
                 </p>
                 <div style={{ textAlign: "center" }}>
-                  <button className="btn btn-primary">Add to Cart</button>
+                  <button className="btn btn-primary" onClick={addToCart}>
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
