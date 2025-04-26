@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "@/styles/spare-parts.css";
 import SearchBar from "@/components/others/SearchBar";
 
@@ -8,7 +8,7 @@ const SpareParts = () => {
   const [sortOrder, setSortOrder] = useState("name-asc");
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const cartRef = useRef(null);
+  const [animatePing, setAnimatePing] = useState(false);
 
   useEffect(() => {
     fetch("/static/backend-databse-lmao/products.json")
@@ -18,18 +18,6 @@ const SpareParts = () => {
         console.log("Products fetched:", data);
       })
       .catch((error) => console.error("Error fetching products:", error));
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
-        setIsCartOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, []);
 
   const filteredProducts = products.filter((product) =>
@@ -58,30 +46,61 @@ const SpareParts = () => {
 
   const sortedProducts = sortProducts(filteredProducts, sortOrder);
 
-  const addToCart = (itemName) => {
-    setCartItems((prevItems) => [...prevItems, itemName]);
+  const addToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]);
+    setAnimatePing(true);
+    setTimeout(() => setAnimatePing(false), 500);
   };
 
-  const removeFromCart = (index) => {
-    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  const removeFromCart = (indexToRemove) => {
+    setCartItems((prevItems) =>
+      prevItems.filter((_, index) => index !== indexToRemove)
+    );
   };
+
+  const totalBalance = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Shopping Cart Icon */}
-      <div style={{ position: "fixed", top: "30px", right: "20px", zIndex: 999 }}>
+      <div style={{ position: "fixed", top: "60px", right: "20px", zIndex: 999 }}>
         <div
           className="cart-container"
           style={{ position: "relative", display: "inline-block" }}
-          ref={cartRef}
         >
           <span
             role="img"
             aria-label="cart"
-            style={{ fontSize: "45px", color: "yellow", cursor: "pointer" }}
             onClick={() => setIsCartOpen(!isCartOpen)}
+            style={{
+              fontSize: "45px",
+              color: "yellow",
+              cursor: "pointer",
+              position: "relative",
+            }}
           >
             🛒
+            {cartItems.length > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-8px",
+                  right: "-8px",
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "12px",
+                  animation: animatePing ? "ping 0.5s" : "none",
+                }}
+              >
+                {cartItems.length}
+              </span>
+            )}
           </span>
 
           {/* Cart Dropdown */}
@@ -97,45 +116,68 @@ const SpareParts = () => {
                 border: "1px solid #ccc",
                 borderRadius: "5px",
                 padding: "10px",
-                minWidth: "220px",
+                minWidth: "250px",
                 boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
                 zIndex: 9999,
-                animation: "fadeIn 0.3s ease-in-out", // animation
               }}
             >
               {cartItems.length === 0 ? (
                 <p>Your cart is empty.</p>
               ) : (
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {cartItems.map((item, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      <span>{item}</span>
-                      <button
-                        className="btn btn-primary btn-sm"
+                <div>
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                    {cartItems.map((item, index) => (
+                      <li
+                        key={index}
                         style={{
-                          padding: "2px 6px",
-                          fontSize: "12px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: "8px",
                         }}
-                        onClick={() => removeFromCart(index)}
                       >
-                        Remove
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                        <span>{item.name} (${item.price})</span>
+                        <button
+                          onClick={() => removeFromCart(index)}
+                          style={{
+                            backgroundColor: "#007BFF",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "2px 6px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <p style={{ marginTop: "10px", fontWeight: "bold" }}>
+                    Total: ${totalBalance.toFixed(2)}
+                  </p>
+                </div>
               )}
             </div>
           )}
         </div>
       </div>
+
+      {/* Styles for Ping Animation */}
+      <style jsx>{`
+        @keyframes ping {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.5);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
 
       <br />
       <br />
@@ -183,7 +225,7 @@ const SpareParts = () => {
               <span>Sort By</span>
               <svg
                 viewBox="0 0 360 360"
-                xmlSpace="preserve"
+                xml:space="preserve"
                 style={{ fill: "white", width: "12px", height: "12px" }}
               >
                 <g id="SVGRepo_iconCarrier">
@@ -293,7 +335,7 @@ const SpareParts = () => {
                 <div style={{ textAlign: "center" }}>
                   <button
                     className="btn btn-primary"
-                    onClick={() => addToCart(product.name)}
+                    onClick={() => addToCart(product)}
                   >
                     Add to Cart
                   </button>
@@ -303,20 +345,6 @@ const SpareParts = () => {
           </div>
         ))}
       </div>
-
-      {/* Keyframes for Fade Animation */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 };
