@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "@/styles/spare-parts.css";
 import SearchBar from "@/components/others/SearchBar";
 
@@ -6,7 +6,9 @@ const SpareParts = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("name-asc");
-  const [cartItems, setCartItems] = useState(0); // 🛒 cart count state
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartRef = useRef(null);
 
   useEffect(() => {
     fetch("/static/backend-databse-lmao/products.json")
@@ -18,9 +20,17 @@ const SpareParts = () => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  const addToCart = () => {
-    setCartItems(cartItems + 1); // ➕ increment cart items
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -48,47 +58,83 @@ const SpareParts = () => {
 
   const sortedProducts = sortProducts(filteredProducts, sortOrder);
 
+  const addToCart = (itemName) => {
+    setCartItems((prevItems) => [...prevItems, itemName]);
+  };
+
+  const removeFromCart = (index) => {
+    setCartItems((prevItems) => prevItems.filter((_, i) => i !== index));
+  };
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", position: "relative" }}>
-      {/* 🛒 Cart Icon */}
-      <div style={{ position: "absolute", top: "80px", right: "30px", cursor: "pointer" }}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="32"
-          viewBox="0 0 24 24"
-          width="32"
-          fill="#FFD700"
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      {/* Shopping Cart Icon */}
+      <div style={{ position: "fixed", top: "30px", right: "20px", zIndex: 999 }}>
+        <div
+          className="cart-container"
+          style={{ position: "relative", display: "inline-block" }}
+          ref={cartRef}
         >
-          <path d="M0 0h24v24H0V0z" fill="none" />
-          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 
-          0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 
-          2-2-.9-2-2-2zM7.16 14l.84-2h7.45c.75 
-          0 1.41-.41 1.75-1.03l3.58-6.49a1 
-          1 0 00-.89-1.48H5.21L4.27 2H1v2h2l3.6 
-          7.59-1.35 2.44C4.52 14.37 5.48 16 7 
-          16h12v-2H7.42c-.14 0-.25-.11-.26-.25z" />
-        </svg>
-        {cartItems > 0 && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-5px",
-              right: "-5px",
-              background: "#FFD700",
-              color: "black",
-              borderRadius: "50%",
-              width: "20px",
-              height: "20px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "12px",
-              fontWeight: "bold",
-            }}
+          <span
+            role="img"
+            aria-label="cart"
+            style={{ fontSize: "45px", color: "yellow", cursor: "pointer" }}
+            onClick={() => setIsCartOpen(!isCartOpen)}
           >
-            {cartItems}
-          </div>
-        )}
+            🛒
+          </span>
+
+          {/* Cart Dropdown */}
+          {isCartOpen && (
+            <div
+              className="cart-dropdown"
+              style={{
+                position: "absolute",
+                top: "55px",
+                right: 0,
+                backgroundColor: "white",
+                color: "black",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                padding: "10px",
+                minWidth: "220px",
+                boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+                zIndex: 9999,
+                animation: "fadeIn 0.3s ease-in-out", // animation
+              }}
+            >
+              {cartItems.length === 0 ? (
+                <p>Your cart is empty.</p>
+              ) : (
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {cartItems.map((item, index) => (
+                    <li
+                      key={index}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <span>{item}</span>
+                      <button
+                        className="btn btn-primary btn-sm"
+                        style={{
+                          padding: "2px 6px",
+                          fontSize: "12px",
+                        }}
+                        onClick={() => removeFromCart(index)}
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       <br />
@@ -99,45 +145,46 @@ const SpareParts = () => {
         for your vehicle.
       </p>
 
-      {/* 🔍 Search and Dropdown */}
+      {/* Search and Sort By */}
       <div
         style={{
           display: "flex",
+          justifyContent: "center",
           alignItems: "stretch",
-          margin: "20px auto",
+          margin: "20px 0",
           flexWrap: "nowrap",
           width: "100%",
           maxWidth: "800px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          gap: "0",
         }}
       >
-        {/* 📂 Dropdown Menu */}
+        {/* Sort By Button */}
         <div
           className="menu"
           style={{
-            backgroundColor: "#007bff",
-            padding: "0 20px",
-            borderRadius: "6px 0 0 6px",
-            border: "1px solid #007bff",
-            borderRight: "none",
+            backgroundColor: "#007BFF",
+            padding: "6px 10px",
+            borderRadius: "4px 0 0 4px",
+            border: "1px solid #007BFF",
+            height: "100%",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            minWidth: "130px",
-            height: "48px",
-            cursor: "pointer",
+            minWidth: "100px",
           }}
         >
-          <div className="item" style={{ display: "flex", alignItems: "center" }}>
+          <div className="item">
             <a
               href="#"
               className="link"
-              style={{ color: "white", fontSize: "14px", textDecoration: "none" }}
+              style={{ color: "white", fontSize: "14px" }}
             >
               <span>Sort By</span>
               <svg
                 viewBox="0 0 360 360"
                 xmlSpace="preserve"
-                style={{ fill: "white", width: "12px", height: "12px", marginLeft: "5px" }}
+                style={{ fill: "white", width: "12px", height: "12px" }}
               >
                 <g id="SVGRepo_iconCarrier">
                   <path
@@ -182,26 +229,25 @@ const SpareParts = () => {
           </div>
         </div>
 
-        {/* 🔎 SearchBar */}
+        {/* SearchBar */}
         <div style={{ flex: 1 }}>
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
             containerStyle={{
               width: "100%",
-              borderRadius: "0 6px 6px 0",
+              borderRadius: "0 4px 4px 0",
               marginLeft: "0",
+              borderLeft: "none",
             }}
             inputStyle={{
               width: "100%",
               padding: "10px 12px",
-              height: "48px",
-              borderLeft: "none",
             }}
           />
         </div>
       </div>
 
-      {/* 🛒 Product Cards */}
+      {/* Product Cards */}
       <div className="row">
         {sortedProducts.map((product) => (
           <div key={product.id} className="col-md-4 mb-4">
@@ -245,7 +291,10 @@ const SpareParts = () => {
                   ${product.price}
                 </p>
                 <div style={{ textAlign: "center" }}>
-                  <button className="btn btn-primary" onClick={addToCart}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => addToCart(product.name)}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -254,6 +303,20 @@ const SpareParts = () => {
           </div>
         ))}
       </div>
+
+      {/* Keyframes for Fade Animation */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

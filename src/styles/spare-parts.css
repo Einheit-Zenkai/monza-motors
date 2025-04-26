@@ -187,3 +187,21 @@
   font-weight: bold;
   color: #B12704;
 }
+
+.cart-container:hover .cart-dropdown {
+  display: block;
+}
+.cart-dropdown {
+  display: none;
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 9999;
+}
