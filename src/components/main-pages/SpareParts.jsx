@@ -60,6 +60,12 @@ const SpareParts = () => {
 
   const totalBalance = cartItems.reduce((acc, item) => acc + item.price, 0);
 
+  const handlePurchase = () => {
+    alert("Thank you for your purchase!");
+    // You can also clear the cart after purchase if you want:
+    // setCartItems([]);
+  };
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Shopping Cart Icon */}
@@ -154,9 +160,28 @@ const SpareParts = () => {
                       </li>
                     ))}
                   </ul>
-                  <p style={{ marginTop: "10px", fontWeight: "bold" }}>
-                    Total: ${totalBalance.toFixed(2)}
-                  </p>
+
+                  {/* Total and Purchase Button */}
+                  <div style={{ marginTop: "10px", textAlign: "center" }}>
+                    <p style={{ fontWeight: "bold" }}>
+                      Total: ${totalBalance.toFixed(2)}
+                    </p>
+                    <button
+                      style={{
+                        marginTop: "8px",
+                        backgroundColor: "#007BFF",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "6px 12px",
+                        fontSize: "14px",
+                        cursor: "pointer",
+                      }}
+                      onClick={handlePurchase}
+                    >
+                      Purchase
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

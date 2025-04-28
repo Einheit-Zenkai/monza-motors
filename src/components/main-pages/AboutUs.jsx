@@ -1,15 +1,29 @@
-import React from 'react';
-import '@/styles/about-us.css'
+import React, { useState, useEffect } from 'react';
+import '@/styles/about-us.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function AboutUs() {
-  AOS.init({
-    duration: 2000,
-    offset: 200,
-    delay: 100,
-    easing: 'ease-in-out'
-  });
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+      offset: 200,
+      delay: 100,
+      easing: 'ease-in-out'
+    });
+  }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 4000); // Alert disappears after 4 seconds
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload
@@ -21,22 +35,48 @@ function AboutUs() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
 
     if (!name || !email || !message) {
-      alert("Please fill in all fields!");
+      setAlertMessage("Please fill in all fields!");
+      setShowAlert(true);
       return;
     }
 
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address!");
+      setAlertMessage("Please enter a valid email address!");
+      setShowAlert(true);
       return;
     }
 
-    alert("Thank you for your feedback!");
+    setAlertMessage("Thank you for your feedback!");
+    setShowAlert(true);
     e.target.reset(); // Clear the form
   };
 
   return (
     <div className="container mt-5 pt-5">
       <>
+        {/* Alert Message */}
+        {showAlert && (
+          <div style={{
+            backgroundColor: "#ff4c4c",
+            color: "white",
+            padding: "1rem",
+            textAlign: "center",
+            borderRadius: "8px",
+            marginBottom: "1rem",
+            fontWeight: "bold",
+            position: "fixed",
+            top: "80px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 9999,
+            width: "90%",
+            maxWidth: "600px",
+          }}>
+            {alertMessage}
+          </div>
+        )}
+
+        {/* Rest of your page */}
         <h1
           style={{
             fontFamily:
@@ -54,6 +94,8 @@ function AboutUs() {
           About us
         </h1>
         <br />
+
+        {/* Car sections */}
         <div className="car-container justify-start" style={{ padding: "0 2rem" }}>
           <img
             src="./static/imgs/skyline/nissanskylinenew.webp"
@@ -225,7 +267,6 @@ function AboutUs() {
             </button>
           </form>
         </div>
-
       </>
     </div>
   );

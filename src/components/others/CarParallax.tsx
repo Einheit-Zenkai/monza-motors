@@ -20,25 +20,25 @@ const featureData = [
   {
     title: "Engine Sound Preview",
     name: "Hear It Roar Before You Buy",
-    image: "/static/imgs/features/engine-preview.avif",
+    image: "/static/imgs/otherimages/v12.avif",
     carcardname: "feature-card-3"
   },
   {
     title: "Detailed Spec Sheets",
     name: "Every Detail, Transparent & Verified",
-    image: "/static/imgs/features/spec-sheets.avif",
+    image: "/static/imgs/otherimages/baja.jpg",
     carcardname: "feature-card-4"
   },
   {
     title: "In-Person Consultation",
     name: "Expert Guidance for Your Custom Build",
-    image: "/static/imgs/features/in-person-consult.avif",
+    image: "/static/imgs/otherimages/dealerdealer.jpg",
     carcardname: "feature-card-5"
   },
   {
     title: "Exclusive Inventory",
     name: "Rare Imports & One-of-a-Kind Machines",
-    image: "/static/imgs/features/exclusive-cars.avif",
+    image: "/static/imgs/otherimages/shelby.jpg",
     carcardname: "feature-card-6"
   }
 ];
