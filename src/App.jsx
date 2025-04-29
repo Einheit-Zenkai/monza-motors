@@ -9,6 +9,7 @@ import Cars from "@/components/main-pages/Cars"; // Updated path
 import Customizer from "@/components/main-pages/Customizer"; // Updated path
 import AboutUs from "@/components/main-pages/AboutUs"; // Updated path
 import SpareParts from "@/components/main-pages/SpareParts"; // Updated path
+import Checkout from "./components/main-pages/Checkout";
 // Car Pages
 import P1 from "@/components/carpages/p1"; // Updated path
 import F12 from "@/components/carpages/f12"; // Updated path
@@ -104,6 +105,7 @@ function App() {
         <Route path="/customizer" element={<Customizer />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/spare-parts" element={<SpareParts />} />
+        <Route path="/checkout" element={<Checkout />} />
         {/* For car pages */}
         <Route path="/carpages/p1" element={<P1 />} />
         <Route path="/carpages/f12" element={<F12 />} />
