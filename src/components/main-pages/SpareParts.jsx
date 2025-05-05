@@ -66,9 +66,8 @@ const SpareParts = () => {
     alert("ty for your purchase! Your order will be shipped soon.");
   };
     // You can also clear the cart after purchase if you want:
-    // setCartItems([]);
-  };
-
+    // setCartItems([])
+}
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* Shopping Cart Icon */}
