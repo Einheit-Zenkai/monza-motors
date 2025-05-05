@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "@/styles/spare-parts.css";
 import SearchBar from "@/components/others/SearchBar";
-import { useNavigate } from "react-router-dom";
+
 const SpareParts = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,7 +9,7 @@ const SpareParts = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [animatePing, setAnimatePing] = useState(false);
-  const navigate = useNavigate();
+  
  
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const SpareParts = () => {
   const totalBalance = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const handlePurchase = () => {
-    navigate("/checkout");
+    alert("ty for your purchase! Your order will be shipped soon.");
   };
     // You can also clear the cart after purchase if you want:
     // setCartItems([]);
