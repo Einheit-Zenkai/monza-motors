@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "@/styles/spare-parts.css";
 import SearchBar from "@/components/others/SearchBar";
-
+import { useNavigate } from "react-router-dom";
 const SpareParts = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,6 +9,8 @@ const SpareParts = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [animatePing, setAnimatePing] = useState(false);
+  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     fetch("/static/backend-databse-lmao/products.json")
@@ -61,7 +63,8 @@ const SpareParts = () => {
   const totalBalance = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const handlePurchase = () => {
-    alert("Thank you for your purchase!");
+    navigate("/checkout");
+  };
     // You can also clear the cart after purchase if you want:
     // setCartItems([]);
   };
@@ -188,7 +191,7 @@ const SpareParts = () => {
           )}
         </div>
       </div>
-
+        
       {/* Styles for Ping Animation */}
       <style jsx>{`
         @keyframes ping {
@@ -372,6 +375,5 @@ const SpareParts = () => {
       </div>
     </div>
   );
-};
 
 export default SpareParts;
