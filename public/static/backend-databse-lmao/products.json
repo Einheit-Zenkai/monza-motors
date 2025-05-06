@@ -2,29 +2,67 @@
   {
     "id": "p1",
     "name": "Gear Shifter",
-    "price": 380000,
-    "image": "/static/imgs/p1/shifter.jpg",
+    "price": 12000,
+    "image": "/static/imgs/otherimages/gearshift.jpg",
     "description": "Simagic Q1 Sequential Shifter with Gear Counter."
   },
   {
     "id": "p1",
-    "name": "wheel",
-    "price": 11000,
-    "image": "/static/imgs/p1/wheel.jpg",
+    "name": "Wheel",
+    "price": 8000,
+    "image": "/static/imgs/otherimages/momo.jpg",
     "description": "MOMO Model 30 Steering Wheel, Suede, 320mm, with Buttons"
   },
   {
     "id": "p1",
-    "name": "pedals",
-    "price": 95000,
-    "image": "/static/imgs/p1/pedal.jpg",
+    "name": "Pedals",
+    "price": 5000,
+    "image": "/static/imgs/otherimages/steponme.jpg",
     "description": "Thrustmaster T-LCM Three Pedal Set"
   },
   {
     "id": "p1",
-    "name": "dashboard panel",
-    "price": 95000,
-    "image": "/static/imgs/p1/dashboard.jpg",
+    "name": "Dashboard Panel",
+    "price": 6000,
+    "image": "/static/imgs/otherimages/dashcontrol.jpg",
     "description": "Dashboard Panel for Ricmotech Mini-Mite Steering Base"
+  },
+  {
+    "id": "p1",
+    "name": "Hydraulic Handbrake",
+    "price": 20000,
+    "image": "/static/imgs/otherimages/hydrobrake.jpg",
+    "description": "Heusinkveld Sim Handbrake with adjustable pressure and travel."
+  },
+  
+  {
+    "id": "p1",
+    "name": "Racing Seat",
+    "price": 18000,
+    "image": "/static/imgs/otherimages/dontsit.jpg",
+    "description": "OMP TRS-E Racing Seat with side mounts for sim rigs."
+  },
+  {
+    "id": "p1",
+    "name": "Suspension Kit",
+    "price": 21000,
+    "image": "/static/imgs/otherimages/suspension.jpg",
+    "description": "SimXperience AccuForce suspension feedback system for realism."
+  },
+
+  {
+    "id": "p1",
+    "name": "Brake Calipers",
+    "price": 28000,
+    "image": "static/imgs/otherimages/brakecali.jpg",
+    "description": "High-performance brake caliper replicas for sim pedal kits."
+  },
+ 
+  {
+    "id": "p1",
+    "name": "Steering Base",
+    "price": 15000,
+    "image": "/static/imgs/otherimages/wowww.jpg",
+    "description": "Fanatec CSL DD Steering Base with 5 Nm peak torque."
   }
 ]
