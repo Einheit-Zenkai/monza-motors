@@ -235,7 +235,7 @@ const SpareParts = () => {
             style={{
               backgroundColor: "#007BFF",
               padding: "6px 10px",
-              borderRadius: "4px 0 0 4px",
+              borderRadius: "4px 4px 4px 4px",
               border: "1px solid #007BFF",
               height: "100%",
               display: "flex",
@@ -306,6 +306,7 @@ const SpareParts = () => {
                 width: "100%",
                 borderRadius: "0 4px 4px 0",
                 marginLeft: "0",
+                // marginRight: "100px",
                 borderLeft: "none",
               }}
               inputStyle={{
@@ -326,8 +327,8 @@ const SpareParts = () => {
                     src={product.image}
                     alt={product.name}
                     style={{
-                      width: "100%",
-                      height: "300px",
+                      maxWidth: "100%",
+                      maxHeight: "100%",
                       objectFit: "cover",
                       borderRadius: "8px",
                       marginBottom: "10px",

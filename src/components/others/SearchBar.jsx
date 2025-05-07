@@ -29,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
         onKeyPress={handleKeyPress}
         style={{
           maxWidth: "400px",
-          marginRight: "0",
+          marginRight: "1rem",
           height: "40px",
         }}
       />
