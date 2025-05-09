@@ -26,7 +26,7 @@ const featureData = [
   {
     title: "Detailed Spec Sheets",
     name: "Every Detail, Transparent & Verified",
-    image: "/static/imgs/otherimages/baja.jpg",
+    image: "/static/imgs/otherimages/specssheet.jpg",
     carcardname: "feature-card-4"
   },
   {
