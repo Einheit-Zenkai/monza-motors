@@ -18,12 +18,6 @@ const featureData = [
     carcardname: "feature-card-2"
   },
   {
-    title: "Engine Sound Preview",
-    name: "Hear It Roar Before You Buy",
-    image: "/static/imgs/otherimages/v12.avif",
-    carcardname: "feature-card-3"
-  },
-  {
     title: "Detailed Spec Sheets",
     name: "Every Detail, Transparent & Verified",
     image: "/static/imgs/otherimages/specssheet.jpg",
