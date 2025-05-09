@@ -14,12 +14,13 @@ const ThreeCanvas = () => {
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
   const controlsRef = useRef(null); // Add this line
+  let devMode = true;
 
   const loaderRef = useRef(null);
   const [currentCar, setCurrentCar] = useState(cars["Ferrari F12 Berlinetta"]);
   const [currentCarModel, setCurrentCarModel] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // State to control the loading screen
-  const [isInteriorView, setIsInteriorView] = useState(false); // State to control the interior view
+  const [isInteriorView, setIsInteriorView] = useState(true); // State to control the interior view
   useEffect(() => {
 
     const scene = new THREE.Scene();
@@ -60,12 +61,35 @@ const ThreeCanvas = () => {
       (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         scene.environment = texture;
-        scene.background = texture;
+        if (!devMode) scene.background = texture;
       }
     );
 
     // Camera position
     camera.position.set(1.5, 1.5, 2.2);
+    // Add grid helpers
+    const gridHelper = new THREE.GridHelper(20, 20, 0xffffff, 0x888888);
+    scene.add(gridHelper);
+
+    // Add axes helper
+    const axesHelper = new THREE.AxesHelper(3);
+    scene.add(axesHelper);
+
+    // Add camera helper if needed
+    const cameraHelper = new THREE.CameraHelper(camera);
+    scene.add(cameraHelper);
+
+    // Controls target point visualization
+    const targetGeometry = new THREE.SphereGeometry(0.05);
+    const targetMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const targetPoint = new THREE.Mesh(targetGeometry, targetMaterial);
+    targetPoint.position.copy(controls.target);
+    scene.add(targetPoint);
+
+    // Update target visualization when controls change
+    controls.addEventListener('change', () => {
+      targetPoint.position.copy(controls.target);
+    });
 
     // Handle window resize
     window.addEventListener("resize", () => {
@@ -79,7 +103,7 @@ const ThreeCanvas = () => {
     loader.setMeshoptDecoder(MeshoptDecoder);
     let garage_name = "static/3D-Models/garages/home-made-garage.glb";
     let garageModel;
-    loader.load(
+    if (!devMode) loader.load(
       garage_name, // Replace with your garage model path
       (gltf) => {
         garageModel = gltf.scene;
@@ -218,11 +242,11 @@ const ThreeCanvas = () => {
 
   const handleInside = () => {
     if (isInteriorView) {
-      cameraRef.current.position.set(0, 0.9, 0);
+      cameraRef.current.position.set(0,0,0);
       // cameraRef.current.lookAt(0, 1.3, 1);
       controlsRef.current.minDistance = 0;
       controlsRef.current.maxDistance = 5.3;
-      controlsRef.current.target.set(0, 1, -0.2);
+      controlsRef.current.target.set(0.3, .7, 0.4);
       controlsRef.current.update();
     } else {
       cameraRef.current.position.set(1.5, 1.5, 0.2);
