@@ -90,8 +90,6 @@ const Checkout = () => {
         <label style={labelStyle}>Card Number</label>
         <input name="cardNumber" type="text" onChange={handleChange} required style={inputStyle} />
 
-        <label style={labelStyle}>Expiry Date</label>
-        <input name="expiry" type="text" placeholder="MM/YY" onChange={handleChange} required style={inputStyle} />
 
         <label style={labelStyle}>CVV</label>
         <input name="cvv" type="text" onChange={handleChange} required style={inputStyle} />
