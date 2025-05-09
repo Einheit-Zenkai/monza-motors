@@ -5,7 +5,7 @@ const Porsche918 = () => {
         <div className="carstats-container">
             <h1 className="carstats-title">Porsche 918 Spyder</h1>
             <img
-                src="/static/imgs/porsche/rp-porsche-scotland-45.jpg"
+                src="/static/imgs/918/rp-porsche-scotland-45.jpg"
                 alt="Porsche 918 Spyder"
                 className="p1-image"
             />
