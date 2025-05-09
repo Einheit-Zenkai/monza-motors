@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- Corrected import
 import "@/styles/spare-parts.css";
 import SearchBar from "@/components/others/SearchBar";
 
@@ -9,8 +10,8 @@ const SpareParts = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [animatePing, setAnimatePing] = useState(false);
-  
- 
+
+  const navigate = useNavigate(); // <-- Correct usage of navigate hook
 
   useEffect(() => {
     fetch("/static/backend-databse-lmao/products.json")
@@ -63,319 +64,328 @@ const SpareParts = () => {
   const totalBalance = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const handlePurchase = () => {
-    alert("ty for your purchase! Your order will be shipped soon.");
+    // Redirect to checkout and send cart data using state
+    navigate("/checkout", {
+      state: {
+        cartItems,
+        total: totalBalance,
+      },
+    });
   };
-    // You can also clear the cart after purchase if you want:
-    // setCartItems([])
 
-    return (
-      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-        {/* Shopping Cart Icon */}
-        <div style={{ position: "fixed", top: "60px", right: "20px", zIndex: 999 }}>
-          <div
-            className="cart-container"
-            style={{ position: "relative", display: "inline-block" }}
-          >
-            <span
-              role="img"
-              aria-label="cart"
-              onClick={() => setIsCartOpen(!isCartOpen)}
-              style={{
-                fontSize: "45px",
-                color: "yellow",
-                cursor: "pointer",
-                position: "relative",
-              }}
-            >
-              🛒
-              {cartItems.length > 0 && (
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "-8px",
-                    right: "-8px",
-                    background: "red",
-                    color: "white",
-                    borderRadius: "50%",
-                    width: "20px",
-                    height: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "12px",
-                    animation: animatePing ? "ping 0.5s" : "none",
-                  }}
-                >
-                  {cartItems.length}
-                </span>
-              )}
-            </span>
-  
-            {/* Cart Dropdown */}
-            {isCartOpen && (
-              <div
-                className="cart-dropdown"
-                style={{
-                  position: "absolute",
-                  top: "55px",
-                  right: 0,
-                  backgroundColor: "white",
-                  color: "black",
-                  border: "1px solid #ccc",
-                  borderRadius: "5px",
-                  padding: "10px",
-                  minWidth: "250px",
-                  boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
-                  zIndex: 9999,
-                }}
-              >
-                {cartItems.length === 0 ? (
-                  <p>Your cart is empty.</p>
-                ) : (
-                  <div>
-                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                      {cartItems.map((item, index) => (
-                        <li
-                          key={index}
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            marginBottom: "8px",
-                          }}
-                        >
-                          <span>{item.name} (${item.price})</span>
-                          <button
-                            onClick={() => removeFromCart(index)}
-                            style={{
-                              backgroundColor: "#007BFF",
-                              color: "white",
-                              border: "none",
-                              borderRadius: "4px",
-                              padding: "2px 6px",
-                              fontSize: "12px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Remove
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-  
-                    {/* Total and Purchase Button */}
-                    <div style={{ marginTop: "10px", textAlign: "center" }}>
-                      <p style={{ fontWeight: "bold" }}>
-                        Total: ${totalBalance.toFixed(2)}
-                      </p>
-                      <button
-                        style={{
-                          marginTop: "8px",
-                          backgroundColor: "#007BFF",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "4px",
-                          padding: "6px 12px",
-                          fontSize: "14px",
-                          cursor: "pointer",
-                        }}
-                        onClick={handlePurchase}
-                      >
-                        Purchase
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-          
-        {/* Styles for Ping Animation */}
-        <style jsx>{`
-          @keyframes ping {
-            0% {
-              transform: scale(1);
-            }
-            50% {
-              transform: scale(1.5);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-        `}</style>
-  
-        <br />
-        <br />
-        <h1>Spare Parts</h1>
-        <p>
-          Welcome to the Spare Parts page. Here you can find a variety of parts
-          for your vehicle.
-        </p>
-  
-        {/* Search and Sort By */}
+  return (
+    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+      {/* Shopping Cart Icon */}
+      <div
+        style={{
+          position: "fixed",
+          top: "60px",
+          right: "20px",
+          zIndex: 999,
+        }}
+      >
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "stretch",
-            margin: "20px 0",
-            flexWrap: "nowrap",
-            width: "100%",
-            maxWidth: "800px",
-            marginLeft: "auto",
-            marginRight: "auto",
-            gap: "0",
-          }}
+          className="cart-container"
+          style={{ position: "relative", display: "inline-block" }}
         >
-          {/* Sort By Button */}
-          <div
-            className="menu"
+          <span
+            role="img"
+            aria-label="cart"
+            onClick={() => setIsCartOpen(!isCartOpen)}
             style={{
-              backgroundColor: "#007BFF",
-              padding: "6px 10px",
-              borderRadius: "4px 4px 4px 4px",
-              border: "1px solid #007BFF",
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              minWidth: "100px",
+              fontSize: "45px",
+              color: "yellow",
+              cursor: "pointer",
+              position: "relative",
             }}
           >
-            <div className="item">
-              <a
-                href="#"
-                className="link"
-                style={{ color: "white", fontSize: "14px" }}
+            🛒
+            {cartItems.length > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-8px",
+                  right: "-8px",
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "20px",
+                  height: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "12px",
+                  animation: animatePing ? "ping 0.5s" : "none",
+                }}
               >
-                <span>Sort By</span>
-                <svg
-                  viewBox="0 0 360 360"
-                  xml:space="preserve"
-                  style={{ fill: "white", width: "12px", height: "12px" }}
-                >
-                  <g id="SVGRepo_iconCarrier">
-                    <path
-                      id="XMLID_225_"
-                      d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393
-                        c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150
-                        c2.813,2.813,6.628,4.393,10.606,4.393s7.794-1.581,10.606-4.394l149.996-150
-                        C331.465,94.749,331.465,85.251,325.607,79.393z"
-                    ></path>
-                  </g>
-                </svg>
-              </a>
-              <div className="submenu">
-                <div className="submenu-item">
-                  <a
-                    href="#"
-                    className="submenu-link"
-                    onClick={() => setSortOrder("name-asc")}
-                  >
-                    Name (A-Z)
-                  </a>
-                </div>
-                <div className="submenu-item">
-                  <a
-                    href="#"
-                    className="submenu-link"
-                    onClick={() => setSortOrder("price-asc")}
-                  >
-                    Price (Low to High)
-                  </a>
-                </div>
-                <div className="submenu-item">
-                  <a
-                    href="#"
-                    className="submenu-link"
-                    onClick={() => setSortOrder("price-desc")}
-                  >
-                    Price (High to Low)
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          {/* SearchBar */}
-          <div style={{ flex: 1 }}>
-            <SearchBar
-              onSearch={(query) => setSearchTerm(query)}
-              containerStyle={{
-                width: "100%",
-                borderRadius: "0 4px 4px 0",
-                marginLeft: "0",
-                // marginRight: "100px",
-                borderLeft: "none",
+                {cartItems.length}
+              </span>
+            )}
+          </span>
+
+          {/* Cart Dropdown */}
+          {isCartOpen && (
+            <div
+              className="cart-dropdown"
+              style={{
+                position: "absolute",
+                top: "55px",
+                right: 0,
+                backgroundColor: "white",
+                color: "black",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                padding: "10px",
+                minWidth: "250px",
+                boxShadow: "0px 8px 16px 0px rgba(0,0,0,0.2)",
+                zIndex: 9999,
               }}
-              inputStyle={{
-                width: "100%",
-                padding: "10px 12px",
-              }}
-            />
-          </div>
-        </div>
-  
-        {/* Product Cards */}
-        <div className="row">
-          {sortedProducts.map((product) => (
-            <div key={product.id} className="col-md-4 mb-4">
-              <div className="product-card">
-                <div className="card-body">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                      marginBottom: "10px",
-                    }}
-                  />
-                  <h5 className="card-title">{product.category}</h5>
-                  <p
-                    className="card-text"
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "2rem",
-                      color: "#ff6600",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {product.name}
-                  </p>
-                  <p
-                    className="card-description"
-                    style={{
-                      fontSize: "1.2rem",
-                      color: "#ff6600",
-                      textAlign: "center",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {product.description}
-                  </p>
-                  <p className="card-price" style={{ color: "#888" }}>
-                    ${product.price}
-                  </p>
-                  <div style={{ textAlign: "center" }}>
+            >
+              {cartItems.length === 0 ? (
+                <p>Your cart is empty.</p>
+              ) : (
+                <div>
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                    {cartItems.map((item, index) => (
+                      <li
+                        key={index}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <span>{item.name} (${item.price})</span>
+                        <button
+                          onClick={() => removeFromCart(index)}
+                          style={{
+                            backgroundColor: "#007BFF",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            padding: "2px 6px",
+                            fontSize: "12px",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Total and Purchase Button */}
+                  <div style={{ marginTop: "10px", textAlign: "center" }}>
+                    <p style={{ fontWeight: "bold" }}>
+                      Total: ${totalBalance.toFixed(2)}
+                    </p>
                     <button
-                      className="btn btn-primary"
-                      onClick={() => addToCart(product)}
+                      style={{
+                        marginTop: "8px",
+                        backgroundColor: "#007BFF",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        padding: "6px 12px",
+                        fontSize: "14px",
+                        cursor: "pointer",
+                      }}
+                      onClick={handlePurchase}
                     >
-                      Add to Cart
+                      Purchase
                     </button>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-          ))}
+          )}
         </div>
       </div>
-    );
-  
-}
+
+      {/* Styles for Ping Animation */}
+      <style jsx>{`
+        @keyframes ping {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.5);
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      `}</style>
+
+      <br />
+      <br />
+      <h1>Spare Parts</h1>
+      <p>
+        Welcome to the Spare Parts page. Here you can find a variety of parts
+        for your vehicle.
+      </p>
+
+      {/* Search and Sort By */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "stretch",
+          margin: "20px 0",
+          flexWrap: "nowrap",
+          width: "100%",
+          maxWidth: "800px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          gap: "0",
+        }}
+      >
+        {/* Sort By Button */}
+        <div
+          className="menu"
+          style={{
+            backgroundColor: "#007BFF",
+            padding: "6px 10px",
+            borderRadius: "4px 4px 4px 4px",
+            border: "1px solid #007BFF",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            minWidth: "100px",
+          }}
+        >
+          <div className="item">
+            <a
+              href="#"
+              className="link"
+              style={{ color: "white", fontSize: "14px" }}
+            >
+              <span>Sort By</span>
+              <svg
+                viewBox="0 0 360 360"
+                xml:space="preserve"
+                style={{ fill: "white", width: "12px", height: "12px" }}
+              >
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    id="XMLID_225_"
+                    d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393
+                        c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150
+                        c2.813,2.813,6.628,4.393,10.606,4.393s7.794-1.581,10.606-4.394l149.996-150
+                        C331.465,94.749,331.465,85.251,325.607,79.393z"
+                  ></path>
+                </g>
+              </svg>
+            </a>
+            <div className="submenu">
+              <div className="submenu-item">
+                <a
+                  href="#"
+                  className="submenu-link"
+                  onClick={() => setSortOrder("name-asc")}
+                >
+                  Name (A-Z)
+                </a>
+              </div>
+              <div className="submenu-item">
+                <a
+                  href="#"
+                  className="submenu-link"
+                  onClick={() => setSortOrder("price-asc")}
+                >
+                  Price (Low to High)
+                </a>
+              </div>
+              <div className="submenu-item">
+                <a
+                  href="#"
+                  className="submenu-link"
+                  onClick={() => setSortOrder("price-desc")}
+                >
+                  Price (High to Low)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SearchBar */}
+        <div style={{ flex: 1 }}>
+          <SearchBar
+            onSearch={(query) => setSearchTerm(query)}
+            containerStyle={{
+              width: "100%",
+              borderRadius: "0 4px 4px 0",
+              marginLeft: "0",
+              borderLeft: "none",
+            }}
+            inputStyle={{
+              width: "100%",
+              padding: "10px 12px",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Product Cards */}
+      <div className="row">
+        {sortedProducts.map((product) => (
+          <div key={product.id} className="col-md-4 mb-4">
+            <div className="product-card">
+              <div className="card-body">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginBottom: "10px",
+                  }}
+                />
+                <h5 className="card-title">{product.category}</h5>
+                <p
+                  className="card-text"
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "2rem",
+                    color: "#ff6600",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {product.name}
+                </p>
+                <p
+                  className="card-description"
+                  style={{
+                    fontSize: "1.2rem",
+                    color: "#ff6600",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  {product.description}
+                </p>
+                <p className="card-price" style={{ color: "#888" }}>
+                  ${product.price}
+                </p>
+                <div style={{ textAlign: "center" }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => addToCart(product)}
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default SpareParts;

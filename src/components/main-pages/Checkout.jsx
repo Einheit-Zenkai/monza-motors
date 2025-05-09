@@ -1,8 +1,13 @@
-// pages/checkout.jsx or src/pages/Checkout.jsx
-
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+  
+  // Get cartItems and total from the state passed during navigation
+  const { cartItems, total } = state || { cartItems: [], total: 0 };
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -21,12 +26,34 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Order placed successfully!");
-    // You can also redirect or clear cart here
+    // Optionally redirect or clear cart here
+    navigate("/"); // Redirect to home or cart page after order is placed
   };
 
   return (
     <div style={{ maxWidth: "500px", margin: "40px auto", padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <h2 style={{ marginBottom: "20px" }}>Checkout</h2>
+
+      {/* Cart details */}
+      <div style={{ marginBottom: "20px" }}>
+        <h3>Your Cart:</h3>
+        {cartItems.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {cartItems.map((item, index) => (
+              <li key={index} style={{ marginBottom: "8px" }}>
+                <span>{item.name} (${item.price})</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div>
+          <p style={{ fontWeight: "bold" }}>Total: ${total.toFixed(2)}</p>
+        </div>
+      </div>
+
+      {/* Checkout form */}
       <form onSubmit={handleSubmit}>
         <label>Full Name</label>
         <input name="fullName" type="text" onChange={handleChange} required style={inputStyle} />
@@ -76,7 +103,5 @@ const buttonStyle = {
   borderRadius: "4px",
   cursor: "pointer",
 };
-
-
 
 export default Checkout;
