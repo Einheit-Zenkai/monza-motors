@@ -1,0 +1,71 @@
+{
+    "Ferrari F12 Berlinetta": {
+        "path": "/static/3D-Models/cars/2013_ferrari_f12_berlinetta.glb",
+        "exterior_name": "bodyKit0_Paint_Geo_lodA_Ferrari_F12berlinetta_2014Paint_Material_0",
+        "scale": 100,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "default_color": "#ffffff"
+    },
+    "porsche 918": {
+        "path": "/static/3D-Models/cars/2015_porsche_918_spyder.glb",
+        "exterior_name": "pKit1_Paint_Geo_lodA_Kit1_Paint_Geo_lodA_Porsche_918SpyderRewardRecycled_2015Paint_Material_pPorsche_918SpyderRewardRecycled_2015Paint_Material1_0",
+        "scale": 100,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0.7
+        },
+        "default_color": "#ffffff"
+    },
+    "Nissan Skyline R34 gtr": {
+        "path": "/static/3D-Models/cars/nissan_skyline_r34_gtr.glb",
+        "exterior_name": "Naran_Hyper_Coupe_carobjcarpaint_chassis_UV2_Untitled_030_Default_Carpaint_0",
+        "scale": 100,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0.2
+        },
+        "default_color": "#ffffff"
+    },
+    "Aston Martin Vulcan": {
+        "path": "/static/3D-Models/cars/aston_martin_vulcan.glb",
+        "exterior_name": "LOD_A_HOOD_mm_ext001_CAR_PAINT_0",
+        "scale": 1,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "default_color": "#ffffff"
+    },
+    "McLaren P1": {
+        "path": "/static/3D-Models/cars/nuclide.glb",
+        "exterior_name": "RLA_miata_headlight_R_popup_RRpbrPaintPrimary_0",
+        "scale": 1,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "default_color": "#ffffff"
+    },
+    "Rolls Royce Ghost": {
+        "path": "/static/3D-Models/cars/rolls-royce_ghost.glb",
+        "exterior_name": {
+            "1": "rrghost_body_rrghost_paint_0",
+            "2": "rrghost_fender_R_b_rrghost_paint_0"
+        },
+        "scale": 1,
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+        },
+        "default_color": "#ffffff"
+    }
+}

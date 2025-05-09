@@ -6,57 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { MeshoptDecoder } from 'meshoptimizer';
 import iro from "@jaames/iro"; // Assuming iro.js is installed
 import LoadingScreen from "@/components/others/LoadingScreen"; // Import the LoadingScreen component
-
-const cars = {
-  "Ferrari F12 Berlinetta": {
-    path: "/static/3D-Models/cars/2013_ferrari_f12_berlinetta.glb",
-    exterior_name:
-      "bodyKit0_Paint_Geo_lodA_Ferrari_F12berlinetta_2014Paint_Material_0",
-    scale: 100,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Ferrari F12
-    default_color: "#ffffff",
-  },
-  "porsche 918": {
-    path: "/static/3D-Models/cars/2015_porsche_918_spyder.glb",
-    exterior_name:
-      "pKit1_Paint_Geo_lodA_Kit1_Paint_Geo_lodA_Porsche_918SpyderRewardRecycled_2015Paint_Material_pPorsche_918SpyderRewardRecycled_2015Paint_Material1_0",
-    scale: 100,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Porsche 918
-    default_color: "#ffffff",
-  },
-  "Nissan Skyline R34 gtr": {
-    path: "/static/3D-Models/cars/nissan_skyline_r34_gtr.glb",
-    exterior_name:
-      "Naran_Hyper_Coupe_carobjcarpaint_chassis_UV2_Untitled_030_Default_Carpaint_0",
-    scale: 100,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Naran Hyper Coupe
-    default_color: "#ffffff",
-  },
-  "Aston Martin Vulcan": {
-    path: "/static/3D-Models/cars/aston_martin_vulcan.glb",
-    exterior_name: "LOD_A_HOOD_mm_ext001_CAR_PAINT_0",
-    scale: 1,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Aston Martin Vulcan
-    default_color: "#ffffff",
-  },
-  "McLaren P1": {
-    path: "/static/3D-Models/cars/nuclide.glb",
-    exterior_name: "RLA_miata_headlight_R_popup_RRpbrPaintPrimary_0",
-    scale: 1,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Mazda Miata
-    default_color: "#ffffff",
-  },
-  "Rolls Royce Ghost": {
-    path: "/static/3D-Models/cars/rolls-royce_ghost.glb",
-    exterior_name: {
-      1: "rrghost_body_rrghost_paint_0",
-      2: "rrghost_fender_R_b_rrghost_paint_0",
-    },
-    scale: 1,
-    offset: { x: 0, y: 0, z: 0 }, // Offset values for Rolls Royce Ghost
-    default_color: "#ffffff",
-  },
-};
+import cars from "@/static/cars.json";
 
 const Customizer = () => {
   const containerRef = useRef(null);
@@ -64,10 +14,9 @@ const Customizer = () => {
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
   const loaderRef = useRef(null);
-
   const [currentCar, setCurrentCar] = useState(cars["Ferrari F12 Berlinetta"]);
   const [currentCarModel, setCurrentCarModel] = useState(null);
-  const [isLoading] = useState(true); // State to control the loading screen
+  const [isLoading, setIsLoading] = useState(true); // State to control the loading screen
 
   useEffect(() => {
     // Initialize Three.js scene
@@ -254,7 +203,7 @@ const Customizer = () => {
 
     loadCarModel(currentCar, scene, loader, setCurrentCarModel); // Load new car
 
-    
+
   }, [currentCar]);
 
   const handleCarChange = (event) => {
@@ -298,6 +247,7 @@ const Customizer = () => {
 
   return (
     <div>
+    <CustomizerSidebar currentCar={currentCar} currentCarModel={currentCarModel} />
       {isLoading && <LoadingScreen />}
       <div ref={containerRef} style={{ width: "100%", height: "100vh" }}></div>
       <div className="position-fixed top-50 end-0 translate-middle-y me-3">

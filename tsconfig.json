@@ -1,0 +1,13 @@
+// filepath: tsconfig.json
+{
+    "compilerOptions": {
+      "baseUrl": "./src", // Or just "./" if your components are in src/components...
+      "paths": {
+        "@/*": ["*"]
+      },
+      "jsx": "react",
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+    },
+    "include": ["src"] 
+  }
