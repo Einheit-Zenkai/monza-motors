@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useLayoutEffect } from 'react';
 import Plyr from 'plyr'; // Import Plyr library
 import CarParallax from '@/components/others/CarParallax';
@@ -7,9 +6,12 @@ import CarParallax from '@/components/others/CarParallax';
 function Home() {
   
   useLayoutEffect(() => {
-      const player = new Plyr('#player', {
-        controls: [],
-      });
+    // Scroll to top when the page loads or when navigating to this page
+    window.scrollTo(0, 0);
+
+    const player = new Plyr('#player', {
+      controls: [],
+    });
     const videoContainer = document.getElementById('videoContainer');
     if (videoContainer) {
       function handleScroll() {
@@ -40,32 +42,28 @@ function Home() {
         </div>
       </section>
 
+      <section>
+        <h1>Precision. Power. Perfection.</h1>
+        <p>Welcome to Monza Motors — where innovation meets adrenaline. Our custom-built performance machines are engineered for those who crave more than just speed. They demand soul.</p>
+      </section>
+
+      <section>
+        <h2>Crafted for the Bold</h2>
+        <p>Every Monza Motors car is handcrafted from the ground up, blending cutting-edge engineering with timeless design. Whether you're tearing up the track or cruising the city streets, our machines deliver an unmatched driving experience.</p>
+      </section>
+
+      <section>
+        <h2>Signature Customs</h2>
+        <p>Our builds are a reflection of pure performance and personal expression. Here are just a few of our latest masterpieces:</p>
+      </section>
       
-    <section>
-      <h1>Precision. Power. Perfection.</h1>
-      <p>Welcome to Monza Motors — where innovation meets adrenaline. Our custom-built performance machines are engineered for those who crave more than just speed. They demand soul.</p>
-      {/* <center><button>Explore Our Builds</button></center> */}
-    </section>
+      <CarParallax />
 
-    <section>
-      <h2>Crafted for the Bold</h2>
-      <p>Every Monza Motors car is handcrafted from the ground up, blending cutting-edge engineering with timeless design. Whether you're tearing up the track or cruising the city streets, our machines deliver an unmatched driving experience.</p>
-    </section>
-
-    
-<section>
-  <h2>Signature Customs</h2>
-  <p>Our builds are a reflection of pure performance and personal expression. Here are just a few of our latest masterpieces:</p>
-</section>
-< CarParallax />
-
-<section>
-  <h2>Custom Built. One-on-One.</h2>
-  <p>We don't believe in online orders. At Monza Motors, every car is a one-of-one, built in person with you, for you. Schedule a visit to meet our team, explore options, and bring your dream car to life.</p>
-  <center><button>Book a Visit</button></center>
-</section>
-
-
+      <section>
+        <h2>Custom Built. One-on-One.</h2>
+        <p>We don't believe in online orders. At Monza Motors, every car is a one-of-one, built in person with you, for you. Schedule a visit to meet our team, explore options, and bring your dream car to life.</p>
+        <center><button>Book a Visit</button></center>
+      </section>
     </div>
   );
 }

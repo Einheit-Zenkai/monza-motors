@@ -1,6 +1,14 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation(); // To detect route changes
+
+  // Scroll to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <footer className="bg-dark text-light py-3 mt-5">
       <div className="container">
@@ -13,10 +21,34 @@ const Footer = () => {
 
           {/* Navigation */}
           <div>
-            <a href="#" className="text-light text-decoration-none me-3">Home</a>
-            <a href="#" className="text-light text-decoration-none me-3">Inventory</a>
-            <a href="#" className="text-light text-decoration-none me-3">Customize</a>
-            <a href="#" className="text-light text-decoration-none">Contact</a>
+            <Link 
+              to="/" 
+              className="text-light text-decoration-none me-3"
+              onClick={scrollToTop} // Scroll to top when clicked
+            >
+              Home
+            </Link>
+            <Link 
+              to="/spare-parts" 
+              className="text-light text-decoration-none me-3"
+              onClick={scrollToTop} // Scroll to top when clicked
+            >
+              Spare parts
+            </Link>
+            <Link 
+              to="/Cars" 
+              className="text-light text-decoration-none me-3"
+              onClick={scrollToTop} // Scroll to top when clicked
+            >
+              Models
+            </Link>
+            <Link 
+              to="/about-us" 
+              className="text-light text-decoration-none"
+              onClick={scrollToTop} // Scroll to top when clicked
+            >
+              Contact
+            </Link>
           </div>
 
           {/* Contact / Socials */}
