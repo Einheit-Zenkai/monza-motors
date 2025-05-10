@@ -45,14 +45,16 @@ const Checkout = () => {
               <thead>
                 <tr>
                   <th style={tableHeaderStyle}>Item</th>
+                  <th style={tableHeaderStyle}>Quantity</th>
                   <th style={tableHeaderStyle}>Price</th>
                 </tr>
               </thead>
               <tbody>
                 {cartItems.map((item, index) => (
                   <tr key={index}>
-                    <td style={tableCellStyle}>{item.name}</td>
-                    <td style={tableCellStyle}>${item.price}</td>
+                    <td style={{ ...tableCellStyle, fontWeight: "600" }}>{item.name}</td>
+                    <td style={{ ...tableCellStyle, fontWeight: "600", textAlign: "center" }}>{item.quantity || 1}</td>
+                    <td style={{ ...tableCellStyle, fontWeight: "600" }}>${item.price}</td>
                   </tr>
                 ))}
               </tbody>
@@ -104,7 +106,7 @@ const Checkout = () => {
   );
 };
 
-// --- Layout Styles ---
+// --- Styles ---
 const pageWrapper = {
   backgroundColor: "#121212",
   minHeight: "100vh",
@@ -153,6 +155,7 @@ const tableHeaderStyle = {
   textAlign: "left",
   color: "orange",
   fontSize: "16px",
+  fontWeight: "bold",
 };
 
 const tableCellStyle = {
@@ -174,6 +177,7 @@ const labelStyle = {
   color: "#fff",
   marginBottom: "5px",
   display: "block",
+  fontWeight: "bold",
 };
 
 const buttonStyle = {
