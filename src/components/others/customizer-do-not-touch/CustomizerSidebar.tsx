@@ -75,32 +75,38 @@ const CustomizerSidebar = ({ currentCar, currentCarModel, handleCarChange }: Cus
       right: 0,
       transform: 'translateY(-50%)',
       marginRight: '0.75rem',
-      zIndex: 50
+      zIndex: 50,
+      backgroundColor: 'rgba(64,64,64, 0.6)',
+      padding: '1rem',
+      borderRadius: '0.5rem',
     }}>
       
-      <div className="bg-secondary bg-opacity-75 rounded-3xl p-3 shadow-sm w-60">
-        <div>
+        <div id="carSelectorContainer">
           <label htmlFor="carSelector" className="font-bold mb-1 block">
-            Select Car:
+        Select Car:
           </label>
-          <select
+            <select
             id="carSelector"
             onChange={handleCarChange}
-            className="w-full py-2 px-3 rounded-md border border-gray-300 text-sm mb-2.5 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-          >
+            className="form-select form-select-sm mb-2"
+            >
             {Object.keys(cars).map((carKey) => (
               <option key={carKey} value={carKey}>
-                {carKey}
+              {carKey}
               </option>
             ))}
-          </select>
+            </select>
         </div>
-        <div
-          id="colorPickerContainer"
-          className="w-full mt-2.5 mb-0"
-        ></div>
+
+<div className="d-flex justify-content-center align-items-center">
+  <div
+    id="colorPickerContainer"
+    className="mt-4"
+    style={{ width: "min-content" }}
+  ></div>
+</div>
       </div>
-    </div>
+
   );
 }
 

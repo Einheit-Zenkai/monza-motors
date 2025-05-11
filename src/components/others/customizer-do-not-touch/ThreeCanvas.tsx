@@ -14,14 +14,19 @@ const ThreeCanvas = () => {
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
   const controlsRef = useRef(null); // Add this line
-  let devMode = true;
+  let devMode = false;
 
   const loaderRef = useRef(null);
   const [currentCar, setCurrentCar] = useState(cars["Ferrari F12 Berlinetta"]);
   const [currentCarModel, setCurrentCarModel] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // State to control the loading screen
-  const [isInteriorView, setIsInteriorView] = useState(true); // State to control the interior view
+  const [isInteriorView, setIsInteriorView] = useState(false); // State to control the interior view
+
   useEffect(() => {
+    if (!containerRef.current) {
+      return; 
+    }
+    const currentContainer = containerRef.current; // Capture for cleanup
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -35,7 +40,7 @@ const ThreeCanvas = () => {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x333333);
-    containerRef.current.appendChild(renderer.domElement);
+    currentContainer.appendChild(renderer.domElement);
 
     // Add OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -61,7 +66,8 @@ const ThreeCanvas = () => {
       (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         scene.environment = texture;
-        if (!devMode) scene.background = texture;
+        // if (!devMode) 
+        scene.background = texture;
       }
     );
 
@@ -69,41 +75,47 @@ const ThreeCanvas = () => {
     camera.position.set(1.5, 1.5, 2.2);
     // Add grid helpers
     const gridHelper = new THREE.GridHelper(20, 20, 0xffffff, 0x888888);
-    scene.add(gridHelper);
-
+    if(devMode) scene.add(gridHelper);
+    
     // Add axes helper
     const axesHelper = new THREE.AxesHelper(3);
-    scene.add(axesHelper);
+    if(devMode)  scene.add(axesHelper);
 
     // Add camera helper if needed
-    const cameraHelper = new THREE.CameraHelper(camera);
-    scene.add(cameraHelper);
+    const cameraHelperInstance = new THREE.CameraHelper(camera); // Renamed to avoid conflict
+    if(devMode) scene.add(cameraHelperInstance);
 
     // Controls target point visualization
     const targetGeometry = new THREE.SphereGeometry(0.05);
-    const targetMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     const targetPoint = new THREE.Mesh(targetGeometry, targetMaterial);
     targetPoint.position.copy(controls.target);
     scene.add(targetPoint);
 
     // Update target visualization when controls change
-    controls.addEventListener('change', () => {
-      targetPoint.position.copy(controls.target);
-    });
+    const handleControlsChange = () => { // Define for removal
+      if (targetPoint && controls) {
+        targetPoint.position.copy(controls.target);
+      }
+    };
+    controls.addEventListener('change', handleControlsChange);
 
     // Handle window resize
-    window.addEventListener("resize", () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    const handleResize = () => { // Define for removal
+      if (camera && renderer) {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+    };
+    window.addEventListener("resize", handleResize);
 
     // Load initial garage model
-    const loader = new GLTFLoader();
-    loader.setMeshoptDecoder(MeshoptDecoder);
+    const gltfLoaderInstance = new GLTFLoader(); // Renamed to avoid conflict with loaderRef
+    gltfLoaderInstance.setMeshoptDecoder(MeshoptDecoder);
     let garage_name = "static/3D-Models/garages/home-made-garage.glb";
     let garageModel;
-    if (!devMode) loader.load(
+    if (!devMode) gltfLoaderInstance.load(
       garage_name, // Replace with your garage model path
       (gltf) => {
         garageModel = gltf.scene;
@@ -129,24 +141,69 @@ const ThreeCanvas = () => {
     sceneRef.current = scene;
     cameraRef.current = camera;
     rendererRef.current = renderer;
-    loaderRef.current = loader;
-    controlsRef.current = controls; // Add this line
+    loaderRef.current = gltfLoaderInstance; // Assign the loader instance used for garage/cars
+    controlsRef.current = controls;
 
     // loadCarModel(currentCar, scene, loader, setCurrentCarModel);
 
     // Animation loop
+    let animationFrameId; // Declare for cleanup
     const animate = () => {
-      requestAnimationFrame(animate);
-      controlsRef.current.update();
-      renderer.render(sceneRef.current, cameraRef.current);
+      animationFrameId = requestAnimationFrame(animate);
+      if (controlsRef.current && rendererRef.current && sceneRef.current && cameraRef.current) { // Check refs
+        controlsRef.current.update();
+        rendererRef.current.render(sceneRef.current, cameraRef.current);
+      }
     };
     animate();
 
     // Cleanup on unmount
     return () => {
-      renderer.dispose(); // Cleanup on component unmount
+      console.log("ThreeCanvas: Cleaning up main useEffect resources.");
+      cancelAnimationFrame(animationFrameId);
+
+      window.removeEventListener("resize", handleResize);
+      
+      if (controls) {
+        controls.removeEventListener('change', handleControlsChange);
+        controls.dispose();
+      }
+      
+      // Dispose of scene-specific objects created in this effect
+      if (scene) {
+        scene.remove(gridHelper);
+        scene.remove(axesHelper);
+        scene.remove(cameraHelperInstance); // Use the correct variable name
+        scene.remove(targetPoint);
+        if (garageModel) { 
+            scene.remove(garageModel);
+            // Optionally, traverse and dispose garageModel resources if not handled elsewhere
+            // For GLTF models, disposing geometry/material is often handled by the car unloading logic
+            // or if the model is simple and not re-used, direct disposal here might be okay.
+        }
+      }
+      if (targetGeometry) targetGeometry.dispose();
+      if (targetMaterial) targetMaterial.dispose();
+      // THREE.GridHelper, AxesHelper, CameraHelper manage their own internal geometries/materials upon removal.
+
+      // Dispose renderer and remove its DOM element
+      if (renderer) {
+        renderer.dispose();
+      }
+      if (currentContainer && renderer && renderer.domElement) {
+        if (currentContainer.contains(renderer.domElement)) {
+          currentContainer.removeChild(renderer.domElement);
+        }
+      }
+      
+      // Clear refs
+      sceneRef.current = null;
+      cameraRef.current = null;
+      rendererRef.current = null;
+      controlsRef.current = null;
+      loaderRef.current = null; // Clear the loader ref as well
     };
-  }, []);
+  }, []); // Keep devMode out if it doesn't require full re-init, or add if it does.
 
   useEffect(() => {
     if (!sceneRef.current || !loaderRef.current) return;
@@ -241,29 +298,33 @@ const ThreeCanvas = () => {
   };
 
   const handleInside = () => {
+    console.log("Value of IsInteriorView: ", isInteriorView);
     if (isInteriorView) {
-      cameraRef.current.position.set(0,0,0);
-      // cameraRef.current.lookAt(0, 1.3, 1);
+      //exterior view 
+      cameraRef.current.position.set(currentCar.exterior_cam_pos.x, currentCar.exterior_cam_pos.y, currentCar.exterior_cam_pos.z);
       controlsRef.current.minDistance = 0;
       controlsRef.current.maxDistance = 5.3;
-      controlsRef.current.target.set(0.3, .7, 0.4);
+      controlsRef.current.target.set(0, 0, 0); //orbit ball
       controlsRef.current.update();
     } else {
-      cameraRef.current.position.set(1.5, 1.5, 0.2);
-      controlsRef.current.target.set(0, 0.5, 1);
+      //interior view
+      cameraRef.current.position.set(0,0,0);
+      cameraRef.current.position.set(currentCar.driver_cam_pos.x + 0.3,currentCar.driver_cam_pos.y - 0.2 , currentCar.driver_cam_pos.z - 2);
+      // controlsRef.current.target.set();
       controlsRef.current.minDistance = 0;
-      controlsRef.current.maxDistance = 5.3;
-      controlsRef.current.target.set(0, 1, 0);
+      controlsRef.current.maxDistance = 0.1;
+      controlsRef.current.target.set(currentCar.driver_cam_pos.x, currentCar.driver_cam_pos.y, currentCar.driver_cam_pos.z); //orbit ball
       controlsRef.current.update();
     }
     setIsInteriorView(!isInteriorView);
   }
 
+  console.log("Value of IsInteriorView: ", isInteriorView);
   return (
     <div>
       {!isLoading && <LoadingScreen />}
       <div ref={containerRef} className="w-full h-screen">
-        {isInteriorView && <CustomizerSidebar
+        {!isInteriorView && <CustomizerSidebar
           currentCar={currentCar}
           currentCarModel={currentCarModel}
           handleCarChange={handleCarChange}
@@ -280,7 +341,7 @@ const ThreeCanvas = () => {
         }}
           onClick={() => { handleInside(); }}
         >
-          Interior View
+          {isInteriorView ? 'Exterior' : 'Interior'} View
         </button>
 
       </div>

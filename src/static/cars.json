@@ -8,7 +8,23 @@
             "y": 0,
             "z": 0
         },
-        "default_color": "#ffffff"
+        "default_color": "#ff0000",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+
+        "interior_cam_pos": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "driver_cam_pos": {
+            "x": 0.37,
+            "y": 0.92,
+            "z": -0.7
+        }
     },
     "porsche 918": {
         "path": "/static/3D-Models/cars/2015_porsche_918_spyder.glb",
@@ -17,20 +33,50 @@
         "offset": {
             "x": 0,
             "y": 0,
-            "z": 0.7
+            "z": -0.2
         },
-        "default_color": "#ffffff"
+        "default_color": "#666666",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+        "interior_cam_pos": {
+            "x": 0.37,
+            "y": 0.5,
+            "z": 0.22
+        },
+        "driver_cam_pos": {
+            "x": 0.35,
+            "y": 1,
+            "z": -0.22
+        }
     },
     "Nissan Skyline R34 gtr": {
         "path": "/static/3D-Models/cars/nissan_skyline_r34_gtr.glb",
-        "exterior_name": "Naran_Hyper_Coupe_carobjcarpaint_chassis_UV2_Untitled_030_Default_Carpaint_0",
+        "exterior_name": "Object_47",
         "scale": 100,
         "offset": {
             "x": 0,
             "y": 0,
             "z": 0.2
         },
-        "default_color": "#ffffff"
+        "default_color": "#ffffff",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+        "interior_cam_pos": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "driver_cam_pos": {
+            "x": 0.35,
+            "y": 1,
+            "z": 0
+        }
     },
     "Aston Martin Vulcan": {
         "path": "/static/3D-Models/cars/aston_martin_vulcan.glb",
@@ -41,18 +87,48 @@
             "y": 0,
             "z": 0
         },
-        "default_color": "#ffffff"
+        "default_color": "#ffffff",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+        "interior_cam_pos": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "driver_cam_pos": {
+            "x": 0.35,
+            "y": 0.75,
+            "z": -0.52
+        }
     },
     "McLaren P1": {
         "path": "/static/3D-Models/cars/nuclide.glb",
-        "exterior_name": "RLA_miata_headlight_R_popup_RRpbrPaintPrimary_0",
+        "exterior_name": "mesh_0_25",
         "scale": 1,
         "offset": {
             "x": 0,
             "y": 0,
             "z": 0
         },
-        "default_color": "#ffffff"
+        "default_color": "#ffffff",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+        "interior_cam_pos": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "driver_cam_pos": {
+            "x": 0.25,
+            "y": 0.75,
+            "z": 0
+        }
     },
     "Rolls Royce Ghost": {
         "path": "/static/3D-Models/cars/rolls-royce_ghost.glb",
@@ -66,6 +142,21 @@
             "y": 0,
             "z": 1
         },
-        "default_color": "#ffffff"
+        "default_color": "#ffffff",
+        "exterior_cam_pos": {
+            "x": 1.5,
+            "y": 1.5,
+            "z": 2.2
+        },
+        "interior_cam_pos": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "driver_cam_pos": {
+            "x": 0.35,
+            "y": 1,
+            "z": -0.22
+        }
     }
 }
