@@ -90,7 +90,7 @@ const ThreeCanvas = () => {
     const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     const targetPoint = new THREE.Mesh(targetGeometry, targetMaterial);
     targetPoint.position.copy(controls.target);
-    scene.add(targetPoint);
+    if(devMode) scene.add(targetPoint);
 
     // Update target visualization when controls change
     const handleControlsChange = () => { // Define for removal
