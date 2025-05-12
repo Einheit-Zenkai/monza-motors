@@ -24,6 +24,8 @@ const Checkout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Clear cartItems from localStorage
+    localStorage.removeItem("cartItems");
     alert("Order placed successfully!");
     navigate("/");
   };
@@ -88,16 +90,16 @@ const Checkout = () => {
           <input name="city" type="text" onChange={handleChange} required style={inputStyle} />
 
           <label style={labelStyle}>ZIP Code</label>
-          <input name="zip" type="text" onChange={handleChange} required style={inputStyle} />
+          <input name="zip" type="number" onChange={handleChange} required style={inputStyle} />
 
           <label style={labelStyle}>Card Number</label>
-          <input name="cardNumber" type="text" onChange={handleChange} required style={inputStyle} />
+          <input name="cardNumber" type="tel" onChange={handleChange} required style={inputStyle} inputMode="numeric" pattern="[0-9\s]{13,19}" autoComplete="cc-number" />
 
           <label style={labelStyle}>Expiry Date</label>
-          <input name="expiry" type="text" placeholder="MM/YY" onChange={handleChange} required style={inputStyle} />
+          <input name="expiry" type="text" placeholder="MM/YY" onChange={handleChange} required style={inputStyle} inputMode="numeric" pattern="\d{2}/\d{2}" title="Enter date as MM/YY" />
 
           <label style={labelStyle}>CVV</label>
-          <input name="cvv" type="text" onChange={handleChange} required style={inputStyle} />
+          <input name="cvv" type="tel" onChange={handleChange} required style={inputStyle} inputMode="numeric" pattern="\d{3,4}" title="Enter 3 or 4 digit CVV" />
 
           <button type="submit" style={buttonStyle}>Place Order</button>
         </form>
