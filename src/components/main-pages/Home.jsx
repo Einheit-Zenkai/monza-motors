@@ -56,19 +56,19 @@ function Home() {
 
       <section>
         <h1>Precision. Power. Perfection.</h1>
-        <p>Welcome to Monza Motors — where innovation meets adrenaline...</p>
+        <p>Welcome to Monza Motors — where innovation meets adrenaline.</p>
         <p>We showcase handpicked supercars, offer stunning custom paint jobs, and supply performance-grade parts tailored for true car enthusiasts.</p>
       </section>
 
       <section>
         <h2>Crafted for the Bold</h2>
-        <p>Every Monza Motors car is handcrafted...</p>
+        {/* <p>Every Monza Motors car is handcrafted...</p> */}
         <p>Built with passion and engineered to defy the ordinary — our creations are made for those who dare to stand out.</p>
       </section>
 
       <section>
         <h2>Signature Customs</h2>
-        <p>Our builds are a reflection...</p>
+        {/* <p>Our builds are a reflection...</p> */}
         <p>From matte finishes to custom hues and elite carbon fiber kits — each detail is yours to define.</p>
       </section>
 

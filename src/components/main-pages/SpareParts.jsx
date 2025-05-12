@@ -23,10 +23,12 @@ const SpareParts = () => {
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
+  // This filtering logic could be part of a custom hook or utility function if it gets more complex
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // This sorting logic could also be part of a custom hook or utility function
   const sortProducts = (products, sortOrder) => {
     let sortedProducts;
     switch (sortOrder) {
@@ -49,6 +51,7 @@ const SpareParts = () => {
 
   const sortedProducts = sortProducts(filteredProducts, sortOrder);
 
+  // Cart management logic (addToCart, removeFromCart, totalBalance) could be moved to a custom hook (e.g., useCart)
   const addToCart = (product) => {
     setCartItems((prevItems) => {
       const existingIndex = prevItems.findIndex((item) => item.id === product.id);
@@ -86,7 +89,9 @@ const SpareParts = () => {
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      {/* Shopping Cart Icon */}
+      {/* START: Potential ShoppingCartIcon Component */}
+      {/* This entire section including the icon, badge, and dropdown could be a ShoppingCartIcon component */}
+      {/* Props needed: cartItems, isCartOpen, setIsCartOpen, animatePing, removeFromCart, totalBalance, handlePurchase */}
       <div style={{ position: "fixed", top: "60px", right: "20px", zIndex: 999 }}>
         <div className="cart-container" style={{ position: "relative", display: "inline-block" }}>
           <span
@@ -124,6 +129,8 @@ const SpareParts = () => {
             )}
           </span>
 
+          {/* START: Potential CartDropdown Component (could be part of ShoppingCartIcon or separate) */}
+          {/* Props needed: cartItems, removeFromCart, totalBalance, handlePurchase */}
           {isCartOpen && (
             <div
               className="cart-dropdown"
@@ -147,6 +154,8 @@ const SpareParts = () => {
                 <div>
                   <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                     {cartItems.map((item, index) => (
+                      // START: Potential CartItem Component
+                      // Props needed: item, index, removeFromCart
                       <li
                         key={index}
                         style={{
@@ -177,6 +186,7 @@ const SpareParts = () => {
                           Remove
                         </button>
                       </li>
+                      // END: Potential CartItem Component
                     ))}
                   </ul>
 
@@ -204,9 +214,13 @@ const SpareParts = () => {
               )}
             </div>
           )}
+          {/* END: Potential CartDropdown Component */}
         </div>
       </div>
+      {/* END: Potential ShoppingCartIcon Component */}
 
+
+      {/* The style tag with keyframes can be moved to a global CSS file or a styled-component if used */}
       <style jsx>{`
         @keyframes ping {
           0% {
@@ -229,7 +243,9 @@ const SpareParts = () => {
         for your vehicle.
       </p>
 
-      {/* Search and Sort */}
+      {/* START: Potential SearchAndSortControls Component */}
+      {/* This section combines search and sort. Could be one component or two separate ones (SortMenu and SearchBar wrapper) */}
+      {/* Props needed: setSortOrder, setSearchTerm */}
       <div
         style={{
           display: "flex",
@@ -241,6 +257,8 @@ const SpareParts = () => {
           gap: "0",
         }}
       >
+        {/* START: Potential SortDropdown Component */}
+        {/* Props needed: setSortOrder */}
         <div
           className="menu"
           style={{
@@ -288,8 +306,11 @@ const SpareParts = () => {
             </div>
           </div>
         </div>
+        {/* END: Potential SortDropdown Component */}
 
         <div style={{ flex: 1 }}>
+          {/* SearchBar is already a component, which is good. */}
+          {/* This SearchBar wrapper could be part of the SearchAndSortControls component */}
           <SearchBar
             onSearch={(query) => setSearchTerm(query)}
             containerStyle={{
@@ -304,10 +325,15 @@ const SpareParts = () => {
           />
         </div>
       </div>
+      {/* END: Potential SearchAndSortControls Component */}
 
-      {/* Product Cards */}
+      {/* START: Potential ProductList Component */}
+      {/* This section maps over products and renders them. */}
+      {/* Props needed: products (e.g., sortedProducts), addToCart */}
       <div className="row">
         {sortedProducts.map((product) => (
+          // START: Potential ProductCard Component
+          // Props needed: product, addToCart
           <div key={product.id} className="col-md-4 mb-4">
             <div className="product-card">
               <div className="card-body">
@@ -356,11 +382,12 @@ const SpareParts = () => {
               </div>
             </div>
           </div>
+          // END: Potential ProductCard Component
         ))}
       </div>
+      {/* END: Potential ProductList Component */}
     </div>
   );
 };
 
 export default SpareParts;
-
