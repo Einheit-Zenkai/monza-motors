@@ -243,7 +243,7 @@ const ThreeCanvas = () => {
           });
           scene.add(model);
           setCurrentCarModel(model);
-          // setIsLoading(false); // Hide the loading screen after the model is loaded
+          setIsLoading(false); // Hide the loading screen after the model is loaded
         },
         undefined,
         (error) => {
@@ -322,7 +322,7 @@ const ThreeCanvas = () => {
   console.log("Value of IsInteriorView: ", isInteriorView);
   return (
     <div>
-      {!isLoading && <LoadingScreen />}
+      {isLoading && <LoadingScreen />}
       <div ref={containerRef} className="w-full h-screen">
         {!isInteriorView && <CustomizerSidebar
           currentCar={currentCar}
