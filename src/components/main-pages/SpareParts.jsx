@@ -12,8 +12,13 @@ const SpareParts = () => {
     return savedCartItems ? JSON.parse(savedCartItems) : [];
   });
 
+  // Ensure localStorage is updated whenever cartItems changes
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    try {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    } catch (error) {
+      console.error("Error saving cart to localStorage:", error);
+    }
   }, [cartItems]);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -61,16 +66,37 @@ const SpareParts = () => {
 
   // Cart management logic (addToCart, removeFromCart, totalBalance) could be moved to a custom hook (e.g., useCart)
   const addToCart = (product) => {
+    console.log("Adding product to cart:", product);
+    console.log("Current cart before update:", cartItems);
+    
     setCartItems((prevItems) => {
-      const existingIndex = prevItems.findIndex((item) => item.id === product.id);
+      // Convert IDs to strings for consistent comparison
+      console.log("Product ID:", String(product.id), "Type:", typeof product.id);
+      
+      const existingIndex = prevItems.findIndex((item) => {
+        console.log("Comparing with item ID:", String(item.id), "Type:", typeof item.id);
+        return String(item.id) === String(product.id);
+      });
+      
+      console.log("Existing item index:", existingIndex);
+      
       if (existingIndex !== -1) {
+        console.log("Updating existing item quantity");
         const updatedItems = [...prevItems];
         updatedItems[existingIndex].quantity += 1;
+        console.log("Updated item:", updatedItems[existingIndex]);
         return updatedItems;
       } else {
+        console.log("Adding new item to cart");
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+    
+    // We need to log the updated cart in a useEffect since setState is async
+    setTimeout(() => {
+      console.log("Cart after update:", cartItems);
+    }, 100);
+    
     setAnimatePing(true);
     setTimeout(() => setAnimatePing(false), 500);
   };
